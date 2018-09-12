@@ -9,7 +9,6 @@ class App extends Component {
         Hello Arielle.
         <br/>
         I love you.
-
       </div>
     );
   }
