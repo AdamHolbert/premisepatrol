@@ -11,12 +11,19 @@ function Homepage (props) {
                 <hr />
             </div>
             <div className='container'>
-                {props.AuthorList.map((Author) => {
-                    return (
-                        <Link to={Author.URLName} className='row p-2 m-1  btn btn-primary w-100'> {Author.Name}
-                        </Link>
-                    )
-                })}
+                {props.AuthorList && !props.AuthorList.empty > 0 ?
+                    (Object.keys(props.AuthorList).map((id) => {
+                        var Author = props.AuthorList[id];
+                        return (
+                            <Link key={id} to={Author.URLName} className='row p-2 m-1  btn btn-primary w-100'> {Author.Name}
+                            </Link>
+                        )
+                    }))
+                :
+                    <>
+                        Loading Authors
+                    </>
+                }
             </div>
         </>
     )

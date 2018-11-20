@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom';
 class Header extends React.Component {
     
     render() {
-        console.log(this.props);
         return (
             <header className='container-fluid bg-secondary row m-0 p-2'>
                 <div className='p-0 col text-left'>
