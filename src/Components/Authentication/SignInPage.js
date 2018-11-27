@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { compose } from 'recompose';
-import { withFirebase } from '../Firebase';
+import {withAuth} from "../Session";
+import {withFirebase} from "../Firebase/context";
 
 const SignInPage = () => (
-    <div>
-        <h1>SignIn</h1>
+    <>
+        <div className='w-100 text-center h1 p-2'>
+            Login
+            <hr />
+        </div>
         <SignInForm />
-    </div>
+    </>
 );
 
 const INITIAL_STATE = {
@@ -21,7 +23,7 @@ class SignInFormBase extends Component {
     constructor(props) {
         super(props);
         
-        this.state = { ...INITIAL_STATE };
+        this.state = {...INITIAL_STATE};
     }
     
     onSubmit = event => {
@@ -43,50 +45,59 @@ class SignInFormBase extends Component {
         this.setState({ [event.target.name]: event.target.value });
     };
     
-    signedIn() {
-        return this.props.firebase.loggedIn()
-    }
-    
     render() {
         const { email, password, error, loading } = this.state;
-        
-        const isInvalid = password === '' || email === '';
+        const user = this.props.user;
+       
+        const isInvalid = password === '' || email === '' || user || loading;
+        const btnText = user ? "Already Logged in" : loading ? "loading..." : "Sign In";
         
         return (
             <form onSubmit={this.onSubmit}>
-                <input
-                    name="email"
-                    value={email}
-                    onChange={this.onChange}
-                    type="text"
-                    placeholder="Email Address"
-                />
-                <input
-                    name="password"
-                    value={password}
-                    onChange={this.onChange}
-                    type="password"
-                    placeholder="Password"
-                />
-                <button disabled={isInvalid || loading || this.signedIn()} type="submit">
-                    {this.signedIn() ?
-                        "Logged in" :
-                        loading ?
-                            "loading" :
-                            "Sign In"
-                    }
-                </button>
-                
-                {error && <p>{error.message}</p>}
+                <div className="input-group input-group-sm mb-1">
+                    <div className="input-group-prepend w-10">
+                        <span className="input-group-text" style={{'minWidth': '130px'}} id="inputGroup-sizing-sm">Email Address</span>
+                    </div>
+                    <input name="email"
+                           value={email}
+                           onChange={this.onChange}
+                           className='form-control mb-1'
+                           type="text"
+                           placeholder="Email Address"
+                           aria-label="Sizing example input"
+                           aria-describedby="inputGroup-sizing-sm" />
+                </div>
+                <div className="input-group input-group-sm mb-1">
+                    <div className="input-group-prepend w-10">
+                        <span className="input-group-text" style={{'minWidth': '130px'}} id="inputGroup-sizing-sm">Password</span>
+                    </div>
+                    <input name="password"
+                           value={password}
+                           onChange={this.onChange}
+                           className='form-control mb-1'
+                           type="password"
+                           placeholder="Password"
+                           aria-label="Sizing example input"
+                           aria-describedby="inputGroup-sizing-sm" />
+                </div>
+                <div className='d-flex justify-content-end justify-content-between'>
+                    <div className='flex-grow-1'>
+                        {error &&
+                            <button type="button" className="text-light align-self-center bg-secondary rounded text-uppercase d-inline" onClick={() => this.setState({error: null})}>
+                                {error.message}
+                            </button>
+                        }
+                    </div>
+                    <button disabled={isInvalid || loading} className='btn btn-outline-l flex-shrink-1' type="submit">
+                        {btnText}
+                    </button>
+                </div>
             </form>
         );
     }
 }
 
-const SignInForm = compose(
-    withRouter,
-    withFirebase,
-)(SignInFormBase);
+const SignInForm = withAuth(withFirebase(SignInFormBase));
 
 export default SignInPage;
 

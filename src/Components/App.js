@@ -4,37 +4,29 @@ import '../App.css';
 // import {base} from '../base';
 import Homepage from './Homepage';
 import AuthorPage from './AuthorPage';
-import Login from './Authentication/RegisterPage';
 import Header from './Header'
+import SessionProvider from './Session';
+import AdminPage from './Admin';
+import ErrorPage from './ErrorPage';
 
-const INITIAL_STATE = {
-    AuthorList: {},
-    AuthorName: "",
-};
 
 class App extends React.Component {
     
-    constructor() {
-        super();
-        
-        this.state = {...INITIAL_STATE};
-    }
-    
-    render() {
-        return (
+    render(){
+        return(
             <>
                 <Header/>
                 <Switch>
-                    {
-                        this.state.AuthorList && this.state.AuthorList.length > 0
-                            &&
-                        <Route path='/:Author' components={AuthorPage()}/>
-                    }
-                    <Route path='/' render={(props) => <Homepage {...props} AuthorList={this.state.AuthorList}/>}/>
+                    <Route path='/admin' component={AdminPage}/>
+                    <Route path='/A/:author' component={AuthorPage} />
+                    {/*<Route path='/users/:id' component={UserPage}/>*/}
+                    {/*<Route path='/users' component={UsersPage}/>*/}
+                    <Route exact path='/' component={Homepage}/>
+                    <Route path='/' component={ErrorPage}/>
                 </Switch>
             </>
-        );
-    }
-}
+        )
+    };
+};
 
-export default App;
+export default SessionProvider(App);

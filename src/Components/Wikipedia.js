@@ -1,15 +1,18 @@
 import React from 'react';
+import {withAuth} from "./Session/context";
 
 class Wikipedia extends React.Component {
     
     render() {
+        const {author} = this.props.session.state;
+        
         return (
             <>
-                {this.props.Author.Name}'s Wikipedia.
+                {author.username}'s Wikipedia.
             </>
         )
     }
     
 }
 
-export default Wikipedia;
+export default withAuth(Wikipedia);

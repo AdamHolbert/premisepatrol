@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { withFirebase } from '../Firebase';
-import { compose } from 'recompose';
+import {withAuth} from "../Session";
+import {withFirebase} from "../Firebase/context";
 
 const INITIAL_STATE = {
     username: '',
@@ -9,6 +8,7 @@ const INITIAL_STATE = {
     passwordOne: '',
     passwordTwo: '',
     error: null,
+    loading: true,
 };
 
 const RegisterPage = () => (
@@ -18,15 +18,9 @@ const RegisterPage = () => (
             <hr />
         </div>
         <RegisterForum />
-        <SignUpLink />
     </>
 );
 
-const SignUpLink = () => (
-    <p>
-        Don't have an account? <Link to='/register'>Sign Up</Link>
-    </p>
-);
 class RegisterForumBase extends React.Component {
     constructor(props) {
         super(props);
@@ -36,15 +30,25 @@ class RegisterForumBase extends React.Component {
     
     onSubmit = event => {
         const { username, email, passwordOne } = this.state;
-        
+        this.setState({loading: true});
         this.props.firebase
             .doCreateUserWithEmailAndPassword(email, passwordOne)
             .then(authUser => {
-                this.setState({...INITIAL_STATE});
-                this.props.history.push("/");
+                
+                // Create a user in your Firebase realtime database
+                this.props.firebase
+                    .user(authUser.user.uid)
+                    .set({
+                        username,
+                        email
+                    })
+                    .catch(error => {
+                        this.setState({ error });
+                        this.props.firebase.deleteUser();
+                    });
             })
             .catch(error => {
-               this.setState({ error })
+                this.setState({ error: error, loading: false });
             });
         event.preventDefault();
     };
@@ -54,63 +58,81 @@ class RegisterForumBase extends React.Component {
     };
     
     render() {
-        const {
-            username,
-            email,
-            passwordOne,
-            passwordTwo,
-            error,
-        } = this.state;
-    
-        const isInvalid =
-            passwordOne !== passwordTwo ||
-            passwordOne === '' ||
-            email === '' ||
-            username === '';
+        const { username, email, passwordOne, passwordTwo, error, loading} = this.state;
+        const isInvalid = false; // passwordOne !== passwordTwo || passwordOne === '' || email === '' || username === '';
         
         return (
             <>
                 <form onSubmit={this.onSubmit}>
-                    <input
-                        name="username"
-                        value={username}
-                        onChange={this.onChange}
-                        type="text"
-                        placeholder="Full Name"
-                    />
-                    <input
-                        name="email"
-                        value={email}
-                        onChange={this.onChange}
-                        type="text"
-                        placeholder="Email Address"
-                    />
-                    <input
-                        name="passwordOne"
-                        value={passwordOne}
-                        onChange={this.onChange}
-                        type="password"
-                        placeholder="Password"
-                    />
-                    <input
-                        name="passwordTwo"
-                        value={passwordTwo}
-                        onChange={this.onChange}
-                        type="password"
-                        placeholder="Confirm Password"
-                    />
-                    <button disabled={isInvalid} type="submit">Sign Up</button>
-        
-                    {error && <p>{error.message}</p>}
+                    <div className="input-group input-group-sm mb-1">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text" style={{'minWidth': '130px'}} id="inputGroup-sizing-sm">Username</span>
+                        </div>
+                        <input name="username"
+                               value={username}
+                               onChange={this.onChange}
+                               className='form-control mb-1'
+                               type="text"
+                               placeholder="Full Name"
+                               aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-sm" />
+                    </div>
+                    <div className="input-group input-group-sm mb-1">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text" style={{'minWidth': '130px'}} id="inputGroup-sizing-sm">Email</span>
+                        </div>
+                        <input name="email"
+                               value={email}
+                               onChange={this.onChange}
+                               className='form-control mb-1'
+                               type="text"
+                               placeholder="Email Address"
+                               aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-sm" />
+                    </div>
+                    <div className="input-group input-group-sm mb-1">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text" style={{'minWidth': '130px'}} id="inputGroup-sizing-sm">Password</span>
+                        </div>
+                        <input name="passwordOne"
+                               value={passwordOne}
+                               onChange={this.onChange}
+                               className='form-control mb-1'
+                               type="password"
+                               placeholder="Password"
+                               aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-sm" />
+                    </div>
+                    <div className="input-group input-group-sm mb-1">
+                        <div className="input-group-prepend w-10">
+                            <span className="input-group-text" style={{'minWidth': '130px'}} id="inputGroup-sizing-sm">Confirm Password</span>
+                        </div>
+                        <input name="passwordTwo"
+                               value={passwordTwo}
+                               onChange={this.onChange}
+                               className='form-control mb-1'
+                               type="password"
+                               placeholder="Confirm Password"
+                               aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-sm" />
+                    </div>
+                    <div className='d-flex justify-content-end justify-content-between'>
+                        <div className='flex-grow-1'>
+                        {error &&
+                            <button type="button" className="text-light align-self-center bg-secondary rounded text-uppercase d-inline" onClick={() => this.setState({error: null})}>
+                                {error.message}
+                            </button>
+                            
+                        }
+                        </div>
+                        <button disabled={isInvalid || loading} className='btn btn-outline-l flex-shrink-1' type="submit">Sign Up</button>
+                    </div>
                 </form>
             </>
         )
     }
 }
 
-const RegisterForum =  compose(
-    withRouter,
-    withFirebase,
-)(RegisterForumBase);
+const RegisterForum = withFirebase(withAuth(RegisterForumBase));
 
 export default RegisterPage;

@@ -1,31 +1,59 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import { withFirebase} from "./Firebase/context";
 
 import SignInPage from './Authentication/SignInPage'
 import RegisterPage from './Authentication/RegisterPage'
+import PasswordForgetPage from './Authentication/PasswordReset'
+import {withAuth} from "./Session"
+import {withFirebase} from "./Firebase";
+
+const AuthPopout = (props) => {
+    const {expanded, tab, setTab, user} = props;
+    // const {user} = props.session.state;
+    
+    if(!expanded || user) {
+        return null;
+    }
+    
+    return (
+        <div className='container w-75 rounded-bottom text-center bg-secondary bg-secondary-darker p-3 mb-2'>
+            <ul className='nav nav-tabs justify-content-center'>
+                <div className={'nav-item nav-link unselectable-text mx-1' + (tab === 'register' ? ' active' : '')}
+                     onClick={() => setTab('register')}>Register
+                </div>
+                <div className={'nav-item nav-link unselectable-text mx-1' + (tab === 'login' ? ' active' : '')}
+                     onClick={() => setTab('login')}>Login
+                </div>
+                <div className={'nav-item nav-link unselectable-text mx-1' + (tab === 'forgot' ? ' active' : '')}
+                     onClick={() => setTab('forgot')}>Forgot password
+                </div>
+            </ul>
+            {tab === 'register' && <RegisterPage/>}
+            {tab === 'login' && <SignInPage/>}
+            {tab === 'forgot' && <PasswordForgetPage/>}
+        </div>
+    );
+};
 
 const INITIAL_STATE = {
     expanded: false,
-    register: false,
+    tab: 'login',
 };
 
 class Header extends React.Component {
     
     constructor() {
         super();
-        this.logout = this.logout.bind(this);
-        this.close = this.close.bind(this);
+        this.collapse = this.collapse.bind(this);
         this.expand = this.expand.bind(this);
-        this.signIn = this.signIn.bind(this);
-        this.switch = this.switch.bind(this);
+        this.logout = this.logout.bind(this);
+        this.setTab = this.setTab.bind(this);
         this.state = {...INITIAL_STATE};
     }
     
     render() {
-        const { expanded, register } = this.state;
-        const loggedIn = this.props.firebase.loggedIn();
-        
+        const { expanded, tab } = this.state;
+        const { user, loading, author } = this.props.session.state;
         return (
             <>
                 <header className='container-fluid bg-secondary row m-0 p-2 border-bottom border-dark'>
@@ -34,63 +62,50 @@ class Header extends React.Component {
                     </div>
                     <nav className='p-0 col-6 justify-content-start'>
                         {
-                            this.props.Author
+                            author && author.urlName && author.username
                                 &&
                             <>
-                                <Link className='p-2 btn btn-dark mx-2' to={'/' + this.props.Author.URLName}>{this.props.Author.Name}'s Page</Link>
-                                <Link className='p-2 btn btn-dark mx-2' to={'/' + this.props.Author.URLName + '/wikipedia'}>Wikipedia</Link>
-                                <Link className='p-2 btn btn-dark mx-2' to={'/' + this.props.Author.URLName + '/forum'}>Forum</Link>
+                                <Link className='p-2 btn btn-dark mx-2' to={'/A/' + author.urlName}>{author.username}'s Page</Link>
+                                <Link className='p-2 btn btn-dark mx-2' to={'/A/' + author.urlName + '/wikipedia'}>Wikipedia</Link>
+                                <Link className='p-2 btn btn-dark mx-2' to={'/A/' + author.urlName + '/forum'}>Forum</Link>
                             </>
                         }
                     </nav>
                     <div className='p-0 col text-right'>
-                    
-                        <div className='p-2 btn btn-dark mx-2'
-                             onClick={loggedIn ?
-                                 this.logout
-                                 :
-                                 expanded ?
-                                     this.close
-                                     :
-                                     this.expand}>
-                            {loggedIn ?
-                                "LOG OUT"
+                        {loading ?
+                            <div className='p-2 btn btn-dark mx-2'>
+                                 Loading...
+                            </div>
+                            :
+                            <div className='p-2 btn btn-dark mx-2'
+                            onClick={user ?
+                            this.logout
+                            :
+                            expanded ?
+                                this.collapse
+                                :
+                                this.expand}>
+                            {user ?
+                                user.email
                                 :
                                 expanded ?
                                     "CLOSE"
                                     :
                                     "LOGIN"
                             }
-                        </div>
-                    </div>
-        
-                </header>
-        
-                {expanded && !loggedIn &&
-                    <div className='container w-75 rounded-bottom text-center bg-secondary bg-secondary-darker p-3 mb-2'>
-                        <ul className='nav nav-tabs justify-content-center'>
-                            <div className={'nav-item nav-link' + (register ? ' active' : '')} onClick={() => this.setState({register:true})}>Register</div>
-                            <div className={'nav-item nav-link' + (!register ? ' active' : '')} onClick={() => this.setState({register:false})}>Login</div>
-                        </ul>
-                        {register ?
-                            <RegisterPage />
-                            :
-                            <SignInPage />
+                            </div>
                         }
                     </div>
-                }
+                </header>
+                <AuthPopout expanded={expanded} user={user} tab={tab} setTab={this.setTab}/>
             </>
         )
     }
     
-    close() { this.setState({expanded: false}) }
+    collapse() { this.setState({expanded: false}) }
     expand() { this.setState({expanded: true}) }
+    setTab(text) { this.setState({tab: text}) }
     
-    signIn() {
-        this.setState({
-            expanded: false
-        })
-    }
     logout() {
         this.props.firebase.doSignOut()
             .then(() => {
@@ -100,11 +115,6 @@ class Header extends React.Component {
                 this.setState({ error: error, loading: false });
             });
     }
-    switch() {
-        const register = this.state;
-        this.setState({register: !register})
-    }
-    
 }
 
-export default withFirebase(Header);
+export default withFirebase(withAuth(Header));
