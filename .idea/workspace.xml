@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="380b0a9e-52fe-4e01-8a18-6ffd4ba50547" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/_redirects" afterPath="$PROJECT_DIR$/src/_redirects" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/_redirects" afterPath="$PROJECT_DIR$/public/_redirects" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -92,8 +92,8 @@
       <file leaf-file-name="Forum.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Components/Forum.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="37" lean-forward="false" selection-start-line="10" selection-start-column="37" selection-end-line="10" selection-end-column="37" />
+            <state relative-caret-position="221">
+              <caret line="13" column="5" lean-forward="true" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -247,6 +247,11 @@
             <path>
               <item name="premisepatrol" type="b2602c69:ProjectViewProjectNode" />
               <item name="premisepatrol" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="premisepatrol" type="b2602c69:ProjectViewProjectNode" />
+              <item name="premisepatrol" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -279,11 +284,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Capstone\premisepatrol\public" />
       <recent name="C:\Capstone\premisepatrol\src" />
       <recent name="C:\Capstone\premisepatrol\src\Components" />
       <recent name="C:\Capstone\premisepatrol\src\Components\Firebase" />
       <recent name="C:\Capstone\premisepatrol\src\Components\Authentication" />
-      <recent name="C:\Capstone\premisepatrol2\src\Components" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Capstone\premisepatrol2\src\Components" />
@@ -324,7 +329,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="90835000" />
+    <option name="totallyTimeSpent" value="91062000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1293" height="693" extended-state="6" />
@@ -739,8 +744,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Components/Forum.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="37" lean-forward="false" selection-start-line="10" selection-start-column="37" selection-end-line="10" selection-end-column="37" />
+        <state relative-caret-position="221">
+          <caret line="13" column="5" lean-forward="true" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
