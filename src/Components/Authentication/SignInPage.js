@@ -15,7 +15,6 @@ const SignInPage = () => (
 const INITIAL_STATE = {
     email: '',
     password: '',
-    loading: false,
     error: null,
 };
 
@@ -28,15 +27,17 @@ class SignInFormBase extends Component {
     
     onSubmit = event => {
         const { email, password } = this.state;
-        this.setState({loading: true});
+        const session = this.props.session;
+        session.isLoading(true);
         this.props.firebase
             .doSignInWithEmailAndPassword(email, password)
             .then(() => {
                 this.setState({ ...INITIAL_STATE });
             })
             .catch(error => {
-                this.setState({ error: error, loading: false });
-            });
+                this.setState({ error: error });
+            })
+            .finally(() => {session.isLoading(false)});
         
         event.preventDefault();
     };
@@ -46,8 +47,8 @@ class SignInFormBase extends Component {
     };
     
     render() {
-        const { email, password, error, loading } = this.state;
-        const user = this.props.user;
+        const { email, password, error } = this.state;
+        const { user, loading } = this.props.session.state;
        
         const isInvalid = password === '' || email === '' || user || loading;
         const btnText = user ? "Already Logged in" : loading ? "loading..." : "Sign In";

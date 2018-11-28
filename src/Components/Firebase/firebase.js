@@ -39,6 +39,17 @@ class Firebase {
     deleteUser = () =>
         this.auth.currentUser.delete();
     
+    moderatorLog = () => {
+        return this.doSignInWithEmailAndPassword("testModerator@fake.account", "123456");
+    };
+    
+    authorLog = () => {
+        return this.doSignInWithEmailAndPassword("testAuthor@fake.account", "123456");
+    };
+    
+    userLog = () => {
+        return this.doSignInWithEmailAndPassword("testUser@fake.account", "123456");
+    };
     
     
     // *** user API ***

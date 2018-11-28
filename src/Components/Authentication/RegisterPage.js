@@ -8,7 +8,6 @@ const INITIAL_STATE = {
     passwordOne: '',
     passwordTwo: '',
     error: null,
-    loading: true,
 };
 
 const RegisterPage = () => (
@@ -30,7 +29,8 @@ class RegisterForumBase extends React.Component {
     
     onSubmit = event => {
         const { username, email, passwordOne } = this.state;
-        this.setState({loading: true});
+        const session = this.props.session;
+        session.isLoading(true);
         this.props.firebase
             .doCreateUserWithEmailAndPassword(email, passwordOne)
             .then(authUser => {
@@ -48,8 +48,9 @@ class RegisterForumBase extends React.Component {
                     });
             })
             .catch(error => {
-                this.setState({ error: error, loading: false });
-            });
+                this.setState({ error: error });
+            })
+            .finally(() => {session.isLoading(false)});
         event.preventDefault();
     };
     
@@ -58,8 +59,11 @@ class RegisterForumBase extends React.Component {
     };
     
     render() {
-        const { username, email, passwordOne, passwordTwo, error, loading} = this.state;
-        const isInvalid = false; // passwordOne !== passwordTwo || passwordOne === '' || email === '' || username === '';
+        const { username, email, passwordOne, passwordTwo, error } = this.state;
+        const {loading} = this.props.session.state;
+        const isInvalid = passwordOne !== passwordTwo || passwordOne === '' || email === '' || username === '' || loading;
+        
+        const signUpBtnString = loading ? "Loading..." : "Sign up";
         
         return (
             <>
@@ -125,7 +129,7 @@ class RegisterForumBase extends React.Component {
                             
                         }
                         </div>
-                        <button disabled={isInvalid || loading} className='btn btn-outline-l flex-shrink-1' type="submit">Sign Up</button>
+                        <button disabled={isInvalid} className='btn btn-outline-l flex-shrink-1' type="submit">{signUpBtnString}</button>
                     </div>
                 </form>
             </>

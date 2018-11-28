@@ -1,11 +1,12 @@
 import React from 'react';
 import {Route, Switch, Redirect} from 'react-router';
 import {Link} from 'react-router-dom'
+import {Animation} from 'mdbreact'
 
-import Wikipedia from './Wikipedia';
-import Forum from './Forum';
-import {withFirebase} from "./Firebase";
-import {withAuth} from "./Session/context";
+import Wikipedia from '../Wikipedia';
+import Forum from '../Forum';
+import {withFirebase} from "../Firebase/index";
+import {withAuth} from "../Session/context";
 
 class AuthorPage extends React.Component {
     constructor(props) {
@@ -22,7 +23,10 @@ class AuthorPage extends React.Component {
         this.props.firebase.author(this.props.match.params.author).on('value', snapshot => {
             const authorObject = snapshot.val();
     
-            this.props.session.setState({author: authorObject});
+            this.props.session.setState({
+                author: authorObject,
+                activeUrl: 'author'
+            });
     
             this.setState({
                 author: authorObject,
@@ -40,25 +44,25 @@ class AuthorPage extends React.Component {
         const {author, loading} = this.state;
         if(loading) {
             return (
-                <div className='container-fluid text-center h1'>
+                <Animation type='fadeIn' className='container-fluid text-center h1'>
                     Loading Author page...
-                </div>
+                </Animation>
             );
         }
         
         if(!author){
             return (
-                <div className='w-100 text-center h1 p-2'>
+                <Animation type='fadeIn' className='w-100 text-center h1 p-2'>
                     {this.props.match.params.author} doesn't exist
                     <hr />
                     
                     <Link className='p-2 btn btn-dark mx-2 container-fluid' to={'/'}>Back to home page</Link>
-                </div>
+                </Animation>
             )
         }
         
         return(
-            <>
+            <Animation type='fadeIn'>
             {!this.props.match.isExact ?
                 <Switch>
                     <Route path= {'/A/' + author.urlName + '/wikipedia'} component={Wikipedia} />
@@ -71,7 +75,7 @@ class AuthorPage extends React.Component {
                     <hr />
                 </div>
             }
-            </>
+            </Animation>
         )
     };
 };
