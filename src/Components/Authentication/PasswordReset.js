@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withFirebase } from '../Firebase';
+import {MDBBtn} from 'mdbreact';
 
 const PasswordForgetPage = () => (
     <div>
@@ -64,12 +65,14 @@ class PasswordForgetFormBase extends Component {
                 <div className='d-flex justify-content-end justify-content-between'>
                     <div className='flex-grow-1'>
                         {error &&
-                        <button type="button" className="text-light align-self-center bg-secondary rounded text-uppercase d-inline" onClick={() => this.setState({error: null})}>
+                        <MDBBtn color='white' className='text-dark' size='sm' onClick={() => this.setState({error: null})}>
                             {error.message}
-                        </button>
+                        </MDBBtn>
                         }
                     </div>
-                    <button disabled={isInvalid} className='btn btn-outline-l flex-shrink-1' type="submit">Reset my password</button>
+                    <MDBBtn disabled={isInvalid} color='elegant' type="submit">
+                        Reset Password
+                    </MDBBtn>
                 </div>
             </form>
         );

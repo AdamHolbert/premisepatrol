@@ -34,3 +34,7 @@
 .bg-secondary-darker {
     background-color: #78858e !important;
 }
+
+.md-form {
+    margin: 0;
+}

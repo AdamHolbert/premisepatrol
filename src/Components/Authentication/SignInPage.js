@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {withAuth} from "../Session";
+import {MDBBtn} from 'mdbreact';
 import {withFirebase} from "../Firebase/context";
 
 const SignInPage = () => (
@@ -84,14 +85,14 @@ class SignInFormBase extends Component {
                 <div className='d-flex justify-content-end justify-content-between'>
                     <div className='flex-grow-1'>
                         {error &&
-                            <button type="button" className="text-light align-self-center bg-secondary rounded text-uppercase d-inline" onClick={() => this.setState({error: null})}>
+                            <MDBBtn color='white' className='text-dark' size='sm' onClick={() => this.setState({error: null})}>
                                 {error.message}
-                            </button>
+                            </MDBBtn>
                         }
                     </div>
-                    <button disabled={isInvalid || loading} className='btn btn-outline-l flex-shrink-1' type="submit">
+                    <MDBBtn disabled={isInvalid || loading} color='elegant' type="submit">
                         {btnText}
-                    </button>
+                    </MDBBtn>
                 </div>
             </form>
         );

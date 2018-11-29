@@ -22,7 +22,7 @@ class AuthorPage extends React.Component {
         this.setState({ loading: true });
         this.props.firebase.author(this.props.match.params.author).on('value', snapshot => {
             const authorObject = snapshot.val();
-    
+            
             this.props.session.setState({
                 author: authorObject,
                 activeUrl: 'author'
@@ -55,7 +55,6 @@ class AuthorPage extends React.Component {
                 <Animation type='fadeIn' className='w-100 text-center h1 p-2'>
                     {this.props.match.params.author} doesn't exist
                     <hr />
-                    
                     <Link className='p-2 btn btn-dark mx-2 container-fluid' to={'/'}>Back to home page</Link>
                 </Animation>
             )
@@ -65,13 +64,13 @@ class AuthorPage extends React.Component {
             <Animation type='fadeIn'>
             {!this.props.match.isExact ?
                 <Switch>
-                    <Route path= {'/A/' + author.urlName + '/wikipedia'} component={Wikipedia} />
-                    <Route path= {'/A/' + author.urlName + '/forum'} component={Forum} />
-                    <Route path='/' render={(props) => <Redirect to={'/A/' + author.urlName} />}/>
+                    <Route path= {'/A/' + author.authorUrl + '/wikipedia'} component={Wikipedia} />
+                    <Route path= {'/A/' + author.authorUrl + '/forum'} component={Forum} />
+                    <Route path='/' render={(props) => <Redirect to={'/A/' + author.authorUrl} />}/>
                 </Switch>
                 :
                 <div className='w-100 text-center h1 p-2'>
-                    {author.username}
+                    {author.authorTitle}
                     <hr />
                 </div>
             }

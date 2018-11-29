@@ -1,35 +1,44 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import {withFirebase} from "../Firebase/context";
 import {Animation} from 'mdbreact'
 import {withAuth} from "../Session/context";
 import {withRouter} from 'react-router';
-import { Button, Card, CardBody, CardImage, CardTitle, CardText, Col } from 'mdbreact';
-import AuthorCreatePage from './AuthorCreatePage'
+import { Card, CardBody, CardTitle, CardText, MDBCol, MDBRow, Fa } from 'mdbreact';
 
-const AuthorCardBase = ({author, history}) => (
-    <Col>
-        <Card style={{ width: "22rem" }}>
-            <CardImage
-                className="img-fluid"
-                src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg"
-                onClick={() => {history.push('/a/' + author.urlName)}}
-                waves
-            />
+const AuthorCard = ({author, imgFunction}) => (
+    <MDBCol lg='3' md='4' sm='6' xs='12' className='mb-4'>
+        <Card>
+            <div className="embed-responsive embed-responsive-4by3" onClick={imgFunction}>
+                <embed
+                    className="img-fluid heavy-rain-gradient embed-responsive-item"
+                    src={author.authorImg || "https://mdbootstrap.com/img/Photos/Others/images/43.jpg"}
+                    
+                />
+            </div>
             <CardBody>
-                <CardTitle>{author.username}</CardTitle>
-                <CardText>{author.description}</CardText>
-                <Link key={author.urlName} to={'/A/' + author.urlName}
-                      className='p-2 m-1 btn btn-primary w-100'> Author Page </Link>
+                <CardTitle>{author.authorTitle}</CardTitle>
+                <CardText tag='div'>{author.authorDescription}</CardText>
+                {/*<Link key={author.urlName} to={'/A/' + author.urlName}*/}
+                      {/*className='p-2 m-1 btn btn-primary w-100'> Author Page </Link>*/}
             </CardBody>
         </Card>
-    </Col>
+    </MDBCol>
 );
 
-const AuthorCard = withRouter(AuthorCardBase);
+const AddAuthorCardBase = ({history}) => (
+    <MDBCol lg='3' md='4' sm='6' xs='12' className='mb-4 d-flex'>
+        <Card className='btn text-dark text-center d-flex flex-column w-100 brown lighten-5 align-items-center p-5'
+        onClick={() => {history.push('/create')}}>
+            <Fa icon="plus-square-o" size='5x' />
+            <strong className='h5-responsive'> Add Author </strong>
+        </Card>
+    </MDBCol>
+);
 
-const AuthorList = ({ authors }) => (
+
+const AuthorListBase = ({ authors, history }) => (
     <>
+    {console.log(authors)}
     {authors.length === 0 ?
         <div>
             No authors exist right now.
@@ -38,7 +47,8 @@ const AuthorList = ({ authors }) => (
         <>
         {
             authors.map(author => (
-                <AuthorCard key={author.urlName} author={author} />
+                <AuthorCard key={author.authorId} author={author} imgFunction={() =>
+                {history.push('/A/' + author.authorUrl)}} />
             ))
         }
         </>
@@ -46,25 +56,10 @@ const AuthorList = ({ authors }) => (
     </>
 );
 
-class Homepage extends React.Component {
-    
-    createAuthor = (username, urlName) => {
-        // const { username, email, passwordOne } = this.state;
-        // this.setState({loading: true});
-        this.props.firebase.author(urlName)
-            .set({
-                username,
-                urlName,
-            })
-            .then(author => {
-                console.log(author)
-            })
-            .catch(error => {
-                console.log("Failed")
-                this.setState({ error });
-            });
+const AuthorList = withRouter(AuthorListBase);
+const AddAuthorCard = withRouter(AddAuthorCardBase);
 
-    };
+class Homepage extends React.Component {
     
     constructor(props) {
         super(props);
@@ -88,7 +83,7 @@ class Homepage extends React.Component {
             const authorList = authorObject ? Object.keys(authorObject).map(key => ({
                 ...authorObject[key],
                 uid: key,
-            })) : {};
+            })) : [];
             
             this.setState({
                 authors: authorList,
@@ -104,7 +99,6 @@ class Homepage extends React.Component {
     render () {
         const { authors, loading } = this.state;
         const { user } = this.props.session.state;
-        console.log(user);
         const isModerator = user && user.uid === 'eMfaysL0aHVJHR7d8giI23ncA3h2';
         if(loading) {
             return (
@@ -120,10 +114,11 @@ class Homepage extends React.Component {
                     Homepage
                     <hr/>
                 </div>
-                <div className='container-fluid'>
+                <MDBRow className='container-fluid'>
+                    {isModerator && <AddAuthorCard />}
                     <AuthorList authors={authors} />
-                    {isModerator && <AuthorCreatePage />}
-                </div>
+                    
+                </MDBRow>
             </Animation>
         )
     }

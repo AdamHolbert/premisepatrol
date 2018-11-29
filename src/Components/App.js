@@ -4,6 +4,7 @@ import '../App.css';
 // import {base} from '../base';
 import Homepage from './Author/Homepage';
 import AuthorPage from './Author/AuthorPage';
+import AuthorCreatePage from './Author/AuthorCreatePage';
 import SessionProvider from './Session';
 import AdminPage from './Admin/users';
 import ErrorPage from './ErrorPage';
@@ -15,12 +16,13 @@ class App extends React.Component {
         return(
             <>
                 {/*<Header/>*/}
-            <Header/>
+                <Header/>
                 <Switch>
                     <Route path='/admin' component={AdminPage}/>
                     <Route path='/A/:author' component={AuthorPage} />
                     <Route path='/users/:id' component={UserPage}/>
                     <Route path='/users' component={UsersPage}/>
+                    <Route exact path='/create' component={AuthorCreatePage}/>
                     <Route exact path='/' component={Homepage}/>
                     <Route path='/' component={ErrorPage}/>
                 </Switch>

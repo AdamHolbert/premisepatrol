@@ -105,7 +105,7 @@ class Header extends React.Component {
     toggleShowAllLinks = () => this.setState({ showAllLinks: !this.state.showAllLinks });
     
     render() {
-        const { expanded, tab, showAllLinks } = this.state;
+        const { tab, showAllLinks } = this.state;
         const {firebase, session} = this.props;
         const { author, activeUrl } = session.state;
     
@@ -127,13 +127,13 @@ class Header extends React.Component {
                             {author &&
                                 <>
                                     <NavItem active={activeUrl==='author'}>
-                                        <NavLink to={'/A/' + author.urlName}>{author.username}'s Page</NavLink>
+                                        <NavLink to={'/A/' + author.authorUrl}>{author.authorTitle}'s Page</NavLink>
                                     </NavItem>
                                     <NavItem active={activeUrl==='wiki'}>
-                                        <NavLink to={'/A/' + author.urlName + '/wikipedia'}>Wikipedia</NavLink>
+                                        <NavLink to={'/A/' + author.authorUrl + '/wikipedia'}>Wikipedia</NavLink>
                                     </NavItem>
                                     <NavItem active={activeUrl==='forum'}>
-                                        <NavLink to={'/A/' + author.urlName + '/forum'}>Forum</NavLink>
+                                        <NavLink to={'/A/' + author.authorUrl + '/forum'}>Forum</NavLink>
                                     </NavItem>
                                 </>
                             }
