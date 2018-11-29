@@ -42,8 +42,10 @@ const BookList = ({books, author}) => {
     return(
         <>
         {!books || books.length === 0 ?
-            <div>
-                No Books have been added for {author.authorTitle} yet.
+            <div className='text-center h1 p-2'>
+                <div className='w-auto h1 mx-4 alert alert-light'>
+                    No Books have been added for {author.authorTitle} yet.
+                </div>
             </div>
             :
             <>
