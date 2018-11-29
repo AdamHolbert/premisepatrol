@@ -30,7 +30,6 @@ class UsersBase extends Component {
                 ...usersObject[key],
                 uid: key,
             })) : null;
-            console.log(usersList)
             
             this.setState({
                 users: usersList,

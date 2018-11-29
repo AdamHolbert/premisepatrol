@@ -51,7 +51,7 @@ class RegisterForumBase extends React.Component {
             .catch(error => {
                 this.setState({ error: error });
             })
-            .finally(() => {session.isLoading(false)});
+            .finally(() => { session.isLoading(false); session.showDrawer(false)});
         event.preventDefault();
     };
     

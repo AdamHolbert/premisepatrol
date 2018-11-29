@@ -3,6 +3,7 @@ import { MDBInput, Card, CardBody, CardTitle, CardText, MDBCol, MDBBtn } from 'm
 import tempImg from '../../tempUser.png';
 import {withFirebase} from "../Firebase/context";
 import {withRouter} from 'react-router'
+import {withAuth} from "../Session/context";
 
 const INITIAL_STATE = {
     authorUrl: '',
@@ -31,16 +32,13 @@ class AuthorCreatePage extends React.Component {
         const { authorUrl, authorTitle, authorImg, authorDescription } = this.state;
         this.setState({loading: true});
         
-        this.props.firebase.author(authorUrl).push({}).then((data)=>{
+        this.props.firebase.author(authorUrl).push().then((data)=>{
             const authorId = data.key;
-            this.props.firebase.author(authorUrl)
-            .update({
-                authorId,
-                authorTitle,
-                authorImg,
-                authorUrl,
-                authorDescription
-            })
+            
+            let updates = {};
+            updates['/authorList/' + authorUrl] = {authorId, authorTitle,  authorImg, authorUrl, authorDescription};
+            // updates['/permissionList/' + authorId] = {author: this.props.session.state.user.uid};
+            this.props.firebase.db.ref().update(updates)
             .then(author => {
                 this.props.history.push('/');
             })
@@ -66,7 +64,7 @@ class AuthorCreatePage extends React.Component {
                         <div className="embed-responsive embed-responsive-4by3">
                             <embed
                                 className="img-fluid heavy-rain-gradient embed-responsive-item"
-                                src={authorImg || tempImg}
+                                src={authorImg || "https://mdbootstrap.com/img/Photos/Others/images/43.jpg"}
                             />
                         </div>
                         <CardBody>
@@ -94,12 +92,9 @@ class AuthorCreatePage extends React.Component {
                         </CardBody>
                     </Card>
                 </MDBCol>
-                <div>
-                
-                </div>
             </>
         )
     }
 };
 
-export default withRouter(withFirebase(AuthorCreatePage));
+export default withRouter(withFirebase(withAuth(AuthorCreatePage)));

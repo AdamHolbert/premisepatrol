@@ -25,9 +25,8 @@ const UserLoginBtn = (props) => {
         <NavItem className='p-2 btn btn-dark mx-2'
              onClick={user ? () => logout() :
                  drawerOpen ? () => showDrawer(false) : () => showDrawer(true)}>
-            
             {loading ? "Loading..." :
-                user ? <>{user.email} <Fa icon="user" /> </> :
+                user ? <>{user.username} <Fa icon="user" /> </> :
                     drawerOpen ? "CLOSE" :
                         "LOGIN"
             }
@@ -35,25 +34,36 @@ const UserLoginBtn = (props) => {
     );
 };
 
-const AdminPanel = (props) => {
-    const {firebase, session} = props;
+const AdminPanel = ({firebase, session, role}) => {
+    
+    if(role){
+        return (
+            <div className='btn-group'>
+                <div className='btn btn-red'onClick={() =>
+                    firebase.doSignOut()}>
+                    {role}
+                </div>
+            </div>
+        );
+    }
+    
     return(
         <div className='btn-group'>
             <div className='btn btn-dark' onClick={() =>
                 firebase.doSignOut().then(() => {
                     session.isLoading(true);
-                    firebase.moderatorLog().finally(() => {session.isLoading(false)})})
-            }>Mod</div>
+                    firebase.adamLog().finally(() => {session.isLoading(false)})})
+            }>Adam</div>
             <div className='btn btn-dark' onClick={() => {
                 firebase.doSignOut().then(() => {
                     session.setState({loading: true});
-                    firebase.authorLog().finally(() => {session.setState({loading: false})})})}
-            }>Author</div>
+                    firebase.anonLog().finally(() => {session.setState({loading: false})})})}
+            }>Anon</div>
             <div className='btn btn-dark' onClick={() =>
                 firebase.doSignOut().then(() => {
                     session.setState({loading: true});
-                    firebase.userLog().finally(() => {session.setState({loading: false})})})
-            }>User</div>
+                    firebase.dakotaLog().finally(() => {session.setState({loading: false})})})
+            }>Dakota</div>
         </div>
     )
 };
@@ -107,13 +117,15 @@ class Header extends React.Component {
     render() {
         const { tab, showAllLinks } = this.state;
         const {firebase, session} = this.props;
-        const { author, activeUrl } = session.state;
+        const { author, activeUrl, role, clicks } = session.state;
     
         return (
             <>
                 <Navbar color='stylish-color' dark expand='lg'>
                     <NavbarBrand className='white-text'>
-                        <img src={favicon} width="30" height="30" className="d-inline-block mr-2" alt="" />
+                        <img src={favicon} width="30" height="30" className="d-inline-block mr-2" alt=""
+                            onClick={() => session.setState({clicks: (clicks ? clicks+1 : 1)})}
+                        />
                         <strong>PremisePatrol</strong>
                     </NavbarBrand>
                     <NavbarToggler
@@ -139,9 +151,13 @@ class Header extends React.Component {
                             }
                         </NavbarNav>
                         <NavbarNav right>
-                            <UserLoginBtn logout={this.logout} session={session} />
+                            {clicks > 3 &&
                             <NavItem>
-                                <AdminPanel firebase={firebase} session={session} />
+                                <AdminPanel role={role} firebase={firebase} session={session} />
+                            </NavItem>
+                            }
+                            <NavItem tag='div'>
+                                <UserLoginBtn logout={this.logout} session={session} />
                             </NavItem>
                         </NavbarNav>
                     </Collapse>

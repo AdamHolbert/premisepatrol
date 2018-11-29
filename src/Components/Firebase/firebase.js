@@ -39,16 +39,16 @@ class Firebase {
     deleteUser = () =>
         this.auth.currentUser.delete();
     
-    moderatorLog = () => {
-        return this.doSignInWithEmailAndPassword("testModerator@fake.account", "123456");
+    adamLog = () => {
+        return this.doSignInWithEmailAndPassword("adam@fake.account", "123456");
     };
     
-    authorLog = () => {
+    anonLog = () => {
         return this.doSignInWithEmailAndPassword("testAuthor@fake.account", "123456");
     };
     
-    userLog = () => {
-        return this.doSignInWithEmailAndPassword("testUser@fake.account", "123456");
+    dakotaLog = () => {
+        return this.doSignInWithEmailAndPassword("dakotaKrout@ymail.com", "123456");
     };
     
     
@@ -58,9 +58,13 @@ class Firebase {
     
     users = () => this.db.ref('users');
     
-    author = uid => this.db.ref(`authors/${uid}`);
+    author = uid => this.db.ref(`authorList/${uid}`);
     
-    authors = () => this.db.ref('authors');
+    authors = () => this.db.ref('authorList');
+    
+    permission = (authorId, userId) => this.db.ref(`permissionList/${authorId}/${userId}`);
+    
+    update = (updates) => this.db.ref().update(updates);
 }
 
 export default Firebase;
