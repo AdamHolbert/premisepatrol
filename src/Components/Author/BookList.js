@@ -24,7 +24,7 @@ const BookDisplay = ({book}) => {
                             src={bookImg || "https://mdbootstrap.com/img/Photos/Others/images/43.jpg"}
                         />
                     </MDBCol>
-                    <MDBCol  lg='6' md='12' sm='12' xs='12' style={{'whiteSpace': 'pre-line'}} className='my-4'>
+                    <MDBCol  lg='9' md='12' sm='12' xs='12' style={{'whiteSpace': 'pre-line'}} className='my-4'>
                         {bookDescription}
                     </MDBCol>
                 </MDBRow>
@@ -39,7 +39,6 @@ const BookList = ({books, author}) => {
         ...books[key],
         uid: key,
     })) : null;
-    console.log(bookList);
     return(
         <>
         {!books || books.length === 0 ?

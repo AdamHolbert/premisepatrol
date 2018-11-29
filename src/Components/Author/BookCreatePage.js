@@ -44,6 +44,7 @@ class BookCreatePage extends React.Component {
         const {firebase, session} = this.props;
         const {author} = session.state;
         this.setState({loading: true});
+        console.log(session.state)
         
         firebase.db.ref(`authorList/${author.authorUrl}/books`).push().then((data)=>{
             const bookId = data.key;
@@ -53,7 +54,7 @@ class BookCreatePage extends React.Component {
                 {bookTitle, bookImg, bookDescription};
             
             this.props.firebase.db.ref().update(updates)
-                .then(author => {
+                .then(() => {
                     this.props.history.push(`/A/${author.authorUrl}/`);
                 })
                 .catch(error => {
