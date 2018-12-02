@@ -118,7 +118,7 @@ class Header extends React.Component {
         const { tab, showAllLinks } = this.state;
         const {firebase, session} = this.props;
         const { author, activeUrl, role, clicks } = session.state;
-    
+        
         return (
             <>
                 <Navbar color='stylish-color' dark expand='lg'>
@@ -152,9 +152,9 @@ class Header extends React.Component {
                         </NavbarNav>
                         <NavbarNav right>
                             {clicks > 3 &&
-                            <NavItem>
-                                <AdminPanel role={role} firebase={firebase} session={session} />
-                            </NavItem>
+                                <NavItem>
+                                    <AdminPanel role={role} firebase={firebase} session={session} />
+                                </NavItem>
                             }
                             <NavItem tag='div'>
                                 <UserLoginBtn logout={this.logout} session={session} />

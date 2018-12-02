@@ -61,10 +61,10 @@ class RegisterForumBase extends React.Component {
     
     render() {
         const { username, email, passwordOne, passwordTwo, error } = this.state;
-        const {loading} = this.props.session.state;
-        const isInvalid = passwordOne !== passwordTwo || passwordOne === '' || email === '' || username === '' || loading;
-        
-        const signUpBtnString = loading ? "Loading..." : "Sign up";
+        const {loading, user} = this.props.session.state;
+        const isInvalid = passwordOne !== passwordTwo || passwordOne === '' || email === '' || username === '' || loading || user;
+    
+        const signUpBtnString = user ? "Already Logged in" : loading ? "loading..." : "Sign In";
         
         return (
             <>

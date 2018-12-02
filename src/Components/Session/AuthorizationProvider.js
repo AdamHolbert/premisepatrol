@@ -16,7 +16,8 @@ const SessionProvider = Component => {
                 user: null,
                 author: null,
                 firstLoad: true,
-                drawerOpen: false
+                drawerOpen: false,
+                clicks: 5
             };
         }
 

@@ -35,6 +35,27 @@
     background-color: #78858e !important;
 }
 
-.md-form {
-    margin: 0;
+.unrounded-bottom {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.unrounded-top {
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+}
+.unrounded-left {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.unrounded-right {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.url-label {
+    font-size: 0.8rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-weight: 400;
+    color: #757575;
+
 }

@@ -3,21 +3,16 @@ import {Route, Switch, Redirect} from 'react-router';
 import {Link} from 'react-router-dom'
 import {Animation} from 'mdbreact'
 
-import Wikipedia from '../Wikipedia';
-import Forum from '../Forum';
-import BookList from './BookList';
-import AuthorUsers from './AuthorUsers'
-import BookCreatePage from './BookCreatePage'
 import {withFirebase} from "../Firebase/index";
 import {withAuth} from "../Session/context";
 
-class AuthorPage extends React.Component {
+class AuthorUsers extends React.Component {
     constructor(props) {
         super(props);
         
         this.state = {
             loading: true,
-            author: null,
+            users: null,
         };
     }
     
@@ -30,7 +25,7 @@ class AuthorPage extends React.Component {
                 author: authorObject,
                 activeUrl: 'author'
             });
-    
+            
             this.setState({
                 author: authorObject,
                 loading: false,
@@ -46,8 +41,10 @@ class AuthorPage extends React.Component {
     render(){
         
         const { author, loading } = this.state;
-        const {session} = this.props;
-        const { role } = session.state;
+        const {firebase, session} = this.props;
+        const { role, user } = session.state;
+        
+        return null;
         
         if(loading) {
             return (
@@ -69,37 +66,22 @@ class AuthorPage extends React.Component {
         
         return(
             <Animation type='fadeIn'>
-            {!this.props.match.isExact ?
-                <Switch>
-                    <Route path= {`/A/${author.authorUrl}/wikipedia`} component={null} />
-                    <Route path= {`/A/${author.authorUrl}/forum`} component={null} />
-                    {role && role.match(/^(admin|author)$/) &&
-                        <>
-                        <Route path={`/A/${author.authorUrl}/create`} component={AuthorUsers}/>
-                        <Route path={`/A/${author.authorUrl}/book/create`} component={BookCreatePage}/>
-                        </>
-                    }
-                    <Route path='/' render={(props) => <Redirect to={`/A/${author.authorUrl}`} />}/>
-                </Switch>
-                :
-                <>
+                {!this.props.match.isExact ?
+                    <Switch>
+                        <Route path= {'/A/' + author.authorUrl + '/wikipedia'} component={null} />
+                        <Route path= {'/A/' + author.authorUrl + '/forum'} component={null} />
+                        <Route path='/' render={(props) => <Redirect to={'/create'} component={AuthorUsers} />}/>
+                        <Route path='/' render={(props) => <Redirect to={'/A/' + author.authorUrl} />}/>
+                    </Switch>
+                    :
                     <div className='w-100 text-center h1 p-2'>
                         {author.authorTitle}
-                        {
-                            role && role.match(/^(admin|author)$/) &&
-                            <Link className='btn btn-dark float-right '
-                                to={`/A/${author.authorUrl}/book/create`}>
-                                Add book
-                            </Link>
-                        }
                         <hr />
                     </div>
-                    <BookList books={author.books} author={author} />
-                </>
-            }
+                }
             </Animation>
         )
     };
 };
 
-export default withFirebase(withAuth(AuthorPage));
+export default withFirebase(withAuth(AuthorUsers));
