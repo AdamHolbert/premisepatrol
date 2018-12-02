@@ -48,7 +48,7 @@ const AuthorCard = ({adminView, authorUrl, authorTitle, authorImg, authorDescrip
             }
             <div className="url-label m-0">/A/{authorUrl}</div>
             <CardTitle className=''>{authorTitle}</CardTitle>
-            <CardText tag='div'>
+            <CardText tag='div' style={{'whiteSpace': 'pre-line'}} >
                 {authorDescription}
             </CardText>
         </CardBody>

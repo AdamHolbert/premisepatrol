@@ -71,13 +71,13 @@ class Homepage extends React.Component {
                         <div className='w-100 d-flex flex-row justify-content-end' >
                             <div className='m-0 p-0 color flex-center'
                                  onClick={() => this.setState({addEditCard: !addEditCard})}>
-                                <div className="btn btn-dark p-1 m-0 rounded-0 mx-1">
+                                <div className="btn btn-dark p-1 m-0 unrounded-top mx-1">
                                     {addEditCard ? 'Cancel' : 'Add author'}
                                 </div>
                             </div>
                             <div className='m-0 p-0 color flex-center'
                                  onClick={() => this.setState({loadAdminView: !loadAdminView})}>
-                                <div className="btn btn-dark p-1 m-0 rounded-0 mx-1">
+                                <div className="btn btn-dark p-1 m-0 unrounded-top mx-1">
                                     Hide admin view
                                 </div>
                             </div>
@@ -86,17 +86,13 @@ class Homepage extends React.Component {
                         <div className='w-100 d-flex flex-row justify-content-end' >
                             <div className='m-0 p-0 color flex-center'
                                  onClick={() => this.setState({loadAdminView: !loadAdminView})}>
-                                <div className="btn btn-dark p-1 m-0 rounded-0 mx-1">
+                                <div className="btn btn-dark p-1 m-0 unrounded-top mx-1">
                                     Show admin view
                                 </div>
                             </div>
-                        </div>
-                )}
-                <Animation type='fadeIn'>
-                    <div className='w-100 text-center h1 p-2'>
-                        Homepage
-                        <hr/>
-                    </div>
+                        </div>)
+                }
+                <Animation className={!isAdmin && 'w-100 mt-4'} type='fadeIn'>
                     <AuthorList authors={authors} adminView={showAdminView} addEditCard={addEditCard} />
                     
                 </Animation>
