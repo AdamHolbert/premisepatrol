@@ -1,9 +1,9 @@
 import React from 'react';
-import tempImg from '../../tempUser.png';
+import tempImg from '../../temp.png';
 import { Card, CardBody, CardTitle, CardText, Col, Row} from 'mdbreact';
 
-const AuthorCard = ({adminView, authorUrl, authorTitle, authorImg, authorDescription, imgFunction, peeking, error,
-                        peek, editFunction, deleteFunction}) => (
+const AuthorCard = ({adminView, authorUrl, authorTitle, authorImg, authorDescription, showTempImg,
+                        imgFunction, peeking, error, peek, editFunction, deleteFunction, brokenImg}) => (
     <Card className='unselectable-text'>
         {peeking ?
             <div className='w-100 p-0 m-0 mb-1 p-0 rounded-top unrounded-bottom'>
@@ -32,7 +32,7 @@ const AuthorCard = ({adminView, authorUrl, authorTitle, authorImg, authorDescrip
         (adminView ? '' : 'rounded-top')} onClick={imgFunction}>
             <img
                 className="img-fluid heavy-rain-gradient embed-responsive-item"
-                src={authorImg || tempImg}
+                src={brokenImg ? tempImg : authorImg} alt={''} onError={showTempImg}
             />
             <div className='mask rgba-blue-grey-strong flex-center'>
                 <div className='h6 text-dark alert-dark p-2 rounded'>

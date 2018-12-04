@@ -1,61 +1,45 @@
 import React from 'react';
-import {withFirebase} from "../Firebase/context";
-import {Animation} from 'mdbreact'
-import {withAuth} from "../Session/context";
-import {withRouter} from 'react-router';
-import { Card, CardBody, CardTitle, CardText, MDBCol, MDBRow, Fa } from 'mdbreact';
+import CRUDBook from "./CRUDBook";
 
-const BookDisplay = ({book}) => {
-    const {bookTitle, bookImg, bookDescription} = book;
-    return (
-        <Card className='p-4 mx-3 mb-3 mt-0'>
-            <MDBCol className='text-center' size={12}>
-                <CardTitle className='h6'>
-                    <strong>{bookTitle}</strong>
-                </CardTitle>
-                <hr />
-            </MDBCol>
-            <div className=" w-100 d-flex justify-content-center">
-                <MDBRow className='w-75'>
-                    <MDBCol>
-                        <img
-                            className="img-fluid"
-                            alt={'book cover'}
-                            src={bookImg || "https://mdbootstrap.com/img/Photos/Others/images/43.jpg"}
-                        />
-                    </MDBCol>
-                    <MDBCol  lg='9' md='12' sm='12' xs='12' style={{'whiteSpace': 'pre-line'}} className='my-4'>
-                        {bookDescription}
-                    </MDBCol>
-                </MDBRow>
-            </div>
-        </Card>
-    )
-};
-
-const BookList = ({books, author}) => {
+const BookList = ({books, authorTitle, authorUrl, authorId, addBook, addedBook, adminView}) => {
     
     const bookList = books ? Object.keys(books).map(key => ({
         ...books[key],
         uid: key,
     })) : null;
+    
+    if(!books || books.length === 0){
+        return (
+            <>
+                <div className='text-center h1 p-2'>
+                    <div className='w-auto h1 mx-4 alert alert-light'>
+                        No Books have been added for {authorTitle} yet.
+                    </div>
+                </div>
+                {addBook && <CRUDBook newBook={true}
+                                      editing={true}
+                                      authorUrl={authorUrl}
+                                      authorId={authorId}
+                                      addedBook={addedBook}/>}
+            </>
+        );
+    }
     return(
         <>
-        {!books || books.length === 0 ?
-            <div className='text-center h1 p-2'>
-                <div className='w-auto h1 mx-4 alert alert-light'>
-                    No Books have been added for {author.authorTitle} yet.
-                </div>
-            </div>
-            :
-            <>
+            {addBook && <CRUDBook newBook={true}
+                                  editing={true}
+                                  authorUrl={authorUrl}
+                                  authorId={authorId}
+                                  addedBook={addedBook}/>}
             {
                 bookList.map(book =>
-                    <BookDisplay key={book.bookTitle} book={book} />
+                    <CRUDBook key={book.uid}
+                              book={book}
+                              authorUrl={authorUrl}
+                              authorId={authorId}
+                              adminView={adminView}/>
                 )
             }
-            </>
-        }
         </>
     )
 };

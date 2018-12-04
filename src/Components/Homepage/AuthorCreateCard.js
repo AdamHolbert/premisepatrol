@@ -1,8 +1,8 @@
 import React from 'react';
 import { MDBInput, Card, CardBody, CardTitle, CardText, Col, MDBBtn, Row } from 'mdbreact';
 
-const AuthorCreatePage = ({ authorUrl, authorTitle, authorImg, authorDescription, loading, newAuthor, error,
-                          onChange, createNewAuthor, saveChanges, cancel, peek}) => {
+const AuthorCreateCard = ({ authorUrl, authorTitle, authorImg, authorDescription, loading, newAuthor, error,
+                          onChange, createNewAuthor, saveChanges, cancel, peek, brokenImg}) => {
     const valid = authorUrl && authorTitle && authorImg && authorDescription && !loading;
     
     return(
@@ -71,4 +71,4 @@ const AuthorCreatePage = ({ authorUrl, authorTitle, authorImg, authorDescription
     )
 };
 
-export default AuthorCreatePage;
+export default AuthorCreateCard;

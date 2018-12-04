@@ -1,28 +1,31 @@
 import React from 'react';
 import {Route, Switch, Redirect} from 'react-router';
+import {Fa} from 'mdbreact';
 import {Link} from 'react-router-dom'
 import {Animation} from 'mdbreact'
 
+import AdminHeader, {ABtn} from '../Header/AdminHeader';
 import Wikipedia from '../Wikipedia';
 import Forum from '../Forum';
 import BookList from './BookList';
-import AuthorUsers from './AuthorUsers'
-import BookCreatePage from './BookCreatePage'
 import {withFirebase} from "../Firebase/index";
 import {withAuth} from "../Session/context";
 
 class AuthorPage extends React.Component {
     constructor(props) {
         super(props);
-        
+        this.toggleAddBook = this.toggleAddBook.bind(this);
         this.state = {
+            adminView: false,
             loading: true,
             author: null,
+            addBook: false
         };
     }
     
     componentDidMount() {
         this.setState({ loading: true });
+        
         this.props.firebase.author(this.props.match.params.author).on('value', snapshot => {
             const authorObject = snapshot.val();
             
@@ -43,16 +46,31 @@ class AuthorPage extends React.Component {
         this.props.session.setState({author: null});
     }
     
+    componentWillUpdate(nextProps, nextState){
+        // if users have changed
+        // console.log(this.props.session.roleCheck('admin|author|a'))
+        if(nextState.addBook && (!this.props.session.roleCheck('admin|author'))){
+            this.setState({addBook: false});
+        }
+        if(nextState.adminView && (!this.props.session.roleCheck('admin|author'))){
+            this.setState({adminView: false});
+        }
+    }
+    
+    toggleAddBook = () => {
+        this.setState((prevState, props)=> {
+            return {addBook: !prevState.addBook}
+        });
+    };
+    
     render(){
+        const { author, loading, addBook, adminView } = this.state;
+        const {match} = this.props;
         
-        const { author, loading } = this.state;
-        const {session} = this.props;
-        const { role } = session.state;
-        
-        if(loading || session.state.loading) {
+        if(loading) {
             return (
-                <Animation type='fadeIn' className='container-fluid text-center h1'>
-                    Loading Author page...
+                <Animation type='fadeIn' className='container-fluid text-center w-100 text-center h1 p-2'>
+                    <Fa icon="refresh" spin size="1x" fixed/> Checking Author's existance.
                 </Animation>
             );
         }
@@ -60,46 +78,56 @@ class AuthorPage extends React.Component {
         if(!author){
             return (
                 <Animation type='fadeIn' className='w-100 text-center h1 p-2'>
-                    {this.props.match.params.author} doesn't exist
+                {this.props.match.params.author} doesn't exist
                     <hr />
                     <Link className='p-2 btn btn-dark mx-2 container-fluid' to={'/'}>Back to home page</Link>
                 </Animation>
             )
         }
         
+        if(!match.isExact) return (
+            <Switch>
+                <Route path={`/A/${author.authorUrl}/wikipedia`} component={Wikipedia}/>
+                <Route path={`/A/${author.authorUrl}/forum`} component={Forum}/>
+                <Route path='/' render={(props) => <Redirect to={`/A/${author.authorUrl}`}/>}/>
+            </Switch>
+        );
+        
         return(
-            <Animation type='fadeIn'>
-            {!this.props.match.isExact ?
-                <Switch>
-                    <Route path= {`/A/${author.authorUrl}/wikipedia`} component={null} />
-                    <Route path= {`/A/${author.authorUrl}/forum`} component={null} />
-                    {role && role.match(/^(admin|author)$/) &&
+            <>
+                <AdminHeader reqPerm='admin|author'>
+                    {adminView ?
                         <>
-                        <Route path={`/A/${author.authorUrl}/create`} component={AuthorUsers}/>
-                        <Route path={`/A/${author.authorUrl}/book/create`} component={BookCreatePage}/>
+                            <ABtn className='btn btn-dark float-right'
+                                  clickFunction={this.toggleAddBook}>
+                                {addBook ? 'Cancel' : 'Add book'}
+                            </ABtn>
+
+                            <ABtn className='btn btn-dark float-right'
+                                  clickFunction={() => {this.setState({adminView: false})}}>
+                                Hide Admin View
+                            </ABtn>
                         </>
+                        :
+                        <ABtn className='btn btn-dark float-right'
+                              clickFunction={() => {this.setState({adminView: true})}}>
+                            Show Admin View
+                        </ABtn>
                     }
-                    <Route path='/' render={(props) => <Redirect to={`/A/${author.authorUrl}`} />}/>
-                </Switch>
-                :
-                <>
+                </AdminHeader>
+                <Animation type='fadeIn'>
                     <div className='w-100 text-center h1 p-2'>
                         {author.authorTitle}
-                        {
-                            role && role.match(/^(admin|author)$/) &&
-                            <div className='btn btn-dark float-right '
-                                to={`/A/${author.authorUrl}/book/create`}>
-                                Add book
-                            </div>
-                        }
                         <hr />
                     </div>
-                    <BookList books={author.books} author={author} />
-                </>
-            }
-            </Animation>
+                    <BookList {...author}
+                              adminView={adminView}
+                              addedBook={this.toggleAddBook}
+                              addBook={addBook}/>
+                </Animation>
+            </>
         )
     };
-};
+}
 
 export default withFirebase(withAuth(AuthorPage));

@@ -2,8 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="380b0a9e-52fe-4e01-8a18-6ffd4ba50547" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/favicon.png" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Components/AuthorPage/BookCreatePage.js" afterPath="$PROJECT_DIR$/src/Components/AuthorPage/BookCreate.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Components/Homepage/AuthorCreatePage.js" afterPath="$PROJECT_DIR$/src/Components/Homepage/AuthorCreateCard.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/temp.png" afterPath="$PROJECT_DIR$/src/temp.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Components/App.js" afterPath="$PROJECT_DIR$/src/Components/App.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Components/AuthorPage/AuthorPage.js" afterPath="$PROJECT_DIR$/src/Components/AuthorPage/AuthorPage.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Components/AuthorPage/AuthorUsers.js" afterPath="$PROJECT_DIR$/src/Components/AuthorPage/AuthorUsers.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Components/AuthorPage/BookList.js" afterPath="$PROJECT_DIR$/src/Components/AuthorPage/BookList.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Components/Forum.js" afterPath="$PROJECT_DIR$/src/Components/Forum.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Components/Homepage/AuthorCard.js" afterPath="$PROJECT_DIR$/src/Components/Homepage/AuthorCard.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Components/Homepage/AuthorList.js" afterPath="$PROJECT_DIR$/src/Components/Homepage/AuthorList.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Components/Homepage/CRUDAuthorCard.js" afterPath="$PROJECT_DIR$/src/Components/Homepage/CRUDAuthorCard.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Components/Homepage/Homepage.js" afterPath="$PROJECT_DIR$/src/Components/Homepage/Homepage.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Components/Session/AuthorizationProvider.js" afterPath="$PROJECT_DIR$/src/Components/Session/AuthorizationProvider.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Components/Wikipedia.js" afterPath="$PROJECT_DIR$/src/Components/Wikipedia.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -17,91 +31,33 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Homepage.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Components/Homepage/Homepage.js">
+      <file leaf-file-name="CRUDBook.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Components/AuthorPage/CRUDBook.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="382">
-              <caret line="95" column="26" lean-forward="true" selection-start-line="95" selection-start-column="26" selection-end-line="95" selection-end-column="26" />
+            <state relative-caret-position="110">
+              <caret line="48" column="4" lean-forward="true" selection-start-line="48" selection-start-column="4" selection-end-line="48" selection-end-column="4" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
-                <marker date="1543741363073" expanded="true" signature="3645:3800" ph="..." />
-                <marker date="1543741363073" expanded="true" signature="3667:3772" ph="..." />
+                <element signature="e#3200#4036#0" expanded="false" />
+                <element signature="e#4069#4602#0" expanded="false" />
+                <marker date="1543910197685" expanded="true" signature="5269:6310" ph="..." />
+                <marker date="1543910197685" expanded="true" signature="5370:5847" ph="..." />
+                <marker date="1543910197685" expanded="true" signature="5912:6272" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AuthorList.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Components/Homepage/AuthorList.js">
+      <file leaf-file-name="BookCreate.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Components/AuthorPage/BookCreate.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="42" lean-forward="false" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
+            <state relative-caret-position="365">
+              <caret line="39" column="107" lean-forward="false" selection-start-line="39" selection-start-column="107" selection-end-line="39" selection-end-column="107" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CRUDAuthorCard.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Components/Homepage/CRUDAuthorCard.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="132" column="26" lean-forward="true" selection-start-line="132" selection-start-column="26" selection-end-line="132" selection-end-column="26" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-                <marker date="1543740122303" expanded="true" signature="4572:4976" ph="..." />
-                <marker date="1543740122303" expanded="true" signature="5047:5386" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AuthorCard.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Components/Homepage/AuthorCard.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="314">
-              <caret line="50" column="66" lean-forward="false" selection-start-line="50" selection-start-column="66" selection-end-line="50" selection-end-column="66" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="temp.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/temp.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tempUser.png" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/tempUser.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AuthorPage.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Components/AuthorPage/AuthorPage.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="96" column="25" lean-forward="true" selection-start-line="96" selection-start-column="25" selection-end-line="96" selection-end-column="25" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BookList.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Components/AuthorPage/BookList.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="26" column="94" lean-forward="true" selection-start-line="26" selection-start-column="60" selection-end-line="26" selection-end-column="94" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
+                <marker date="1543910444911" expanded="true" signature="325:2200" ph="..." />
+                <marker date="1543910444911" expanded="true" signature="372:640" ph="..." />
+                <marker date="1543910444911" expanded="true" signature="396:625" ph="..." />
               </folding>
             </state>
           </provider>
@@ -125,6 +81,8 @@
       <find>loading</find>
       <find>Animation</find>
       <find>console</find>
+      <find>this</find>
+      <find>session</find>
     </findStrings>
     <replaceStrings>
       <replace>className='form-control mb-3'</replace>
@@ -137,16 +95,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Components/Firebase/index.js" />
-        <option value="$PROJECT_DIR$/src/Components/Authentication/Login.js" />
-        <option value="$PROJECT_DIR$/src/logo.svg" />
-        <option value="$PROJECT_DIR$/src/Components/Authentication/loggin.js" />
-        <option value="$PROJECT_DIR$/src/Components/Session/Context.js" />
-        <option value="$PROJECT_DIR$/src/Components/Session/withAuthenticaiton.js" />
-        <option value="$PROJECT_DIR$/src/Components/Session/session.js" />
-        <option value="$PROJECT_DIR$/src/Components/Session/withAuthentication.js" />
-        <option value="$PROJECT_DIR$/src/Components/Session/AuthenticationProvider.js" />
-        <option value="$PROJECT_DIR$/src/Components/Session/index.js" />
         <option value="$PROJECT_DIR$/src/Components/Authentication/passwordReset.js" />
         <option value="$PROJECT_DIR$/src/Components/temp.js" />
         <option value="$PROJECT_DIR$/src/Components/Session/SessionProvider.js" />
@@ -162,8 +110,6 @@
         <option value="$PROJECT_DIR$/src/Components/Author/temp.js" />
         <option value="$PROJECT_DIR$/src/Components/Author/Header.js" />
         <option value="$PROJECT_DIR$/src/Components/AuthorPage.js" />
-        <option value="$PROJECT_DIR$/src/Components/Wikipedia.js" />
-        <option value="$PROJECT_DIR$/src/Components/Forum.js" />
         <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/src/Components/Firebase/firebase.js" />
         <option value="$PROJECT_DIR$/src/Components/Authentication/PasswordReset.js" />
@@ -174,7 +120,6 @@
         <option value="$PROJECT_DIR$/src/Components/Author/AuthorUsers.js" />
         <option value="$PROJECT_DIR$/src/Components/Authentication/SignInPage.js" />
         <option value="$PROJECT_DIR$/src/Components/Authentication/RegisterPage.js" />
-        <option value="$PROJECT_DIR$/src/Components/App.js" />
         <option value="$PROJECT_DIR$/src/Components/Author/AuthorPage.js" />
         <option value="$PROJECT_DIR$/src/App.css" />
         <option value="$PROJECT_DIR$/src/Components/Author/AuthorCreatePage.js" />
@@ -183,11 +128,24 @@
         <option value="$PROJECT_DIR$/src/Components/Homepage/AuthorCardFlip.js" />
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/src/Components/Homepage/AuthorCreatePage.js" />
-        <option value="$PROJECT_DIR$/src/Components/Homepage/AuthorList.js" />
-        <option value="$PROJECT_DIR$/src/Components/Session/AuthorizationProvider.js" />
-        <option value="$PROJECT_DIR$/src/Components/Homepage/CRUDAuthorCard.js" />
+        <option value="$PROJECT_DIR$/src/Components/AuthorPage/BookCreatePage.js" />
+        <option value="$PROJECT_DIR$/src/Components/App.js" />
+        <option value="$PROJECT_DIR$/src/Components/AuthorPage/AuthorUsers.js" />
+        <option value="$PROJECT_DIR$/src/Components/Header/AdminHeader.js" />
         <option value="$PROJECT_DIR$/src/Components/Homepage/Homepage.js" />
+        <option value="$PROJECT_DIR$/src/Components/AuthorPage/BookDisplay.js" />
+        <option value="$PROJECT_DIR$/src/Components/Wikipedia.js" />
+        <option value="$PROJECT_DIR$/src/Components/Forum.js" />
+        <option value="$PROJECT_DIR$/src/Components/Homepage/AuthorList.js" />
+        <option value="$PROJECT_DIR$/src/Components/AuthorPage/BookList.js" />
+        <option value="$PROJECT_DIR$/src/Components/AuthorPage/AuthorPage.js" />
+        <option value="$PROJECT_DIR$/src/Components/Session/AuthorizationProvider.js" />
         <option value="$PROJECT_DIR$/src/Components/Homepage/AuthorCard.js" />
+        <option value="$PROJECT_DIR$/src/Components/Homepage/CRUDAuthorCard.js" />
+        <option value="$PROJECT_DIR$/src/Components/AuthorPage/Book.js" />
+        <option value="$PROJECT_DIR$/src/Components/AuthorPage/CRUDBook.js" />
+        <option value="$PROJECT_DIR$/src/Components/Homepage/AuthorCreateCard.js" />
+        <option value="$PROJECT_DIR$/src/Components/AuthorPage/BookCreate.js" />
       </list>
     </option>
   </component>
@@ -247,7 +205,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -266,10 +223,38 @@
               <item name="premisepatrol" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="premisepatrol" type="b2602c69:ProjectViewProjectNode" />
+              <item name="premisepatrol" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="premisepatrol" type="b2602c69:ProjectViewProjectNode" />
+              <item name="premisepatrol" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Components" type="462c0819:PsiDirectoryNode" />
+              <item name="AuthorPage" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="premisepatrol" type="b2602c69:ProjectViewProjectNode" />
+              <item name="premisepatrol" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Components" type="462c0819:PsiDirectoryNode" />
+              <item name="Homepage" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="premisepatrol" type="b2602c69:ProjectViewProjectNode" />
+              <item name="premisepatrol" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Components" type="462c0819:PsiDirectoryNode" />
+              <item name="Session" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -285,18 +270,20 @@
     <property name="node.js.selected.package.standard" value="C:\Capstone\premisepatrol\node_modules\eslint" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
+    <property name="last.edited.regexp" value="" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Capstone\premisepatrol\src" />
-      <recent name="C:\Capstone\premisepatrol2\src\Components" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Capstone\premisepatrol\src\Components\AuthorPage" />
       <recent name="C:\Capstone\premisepatrol\src\Components\Header" />
       <recent name="C:\Capstone\premisepatrol\src\Components\Author" />
       <recent name="C:\Capstone\premisepatrol\public" />
       <recent name="C:\Capstone\premisepatrol\src" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Capstone\premisepatrol\public" />
+      <recent name="C:\Capstone\premisepatrol\src" />
+      <recent name="C:\Capstone\premisepatrol2\src\Components" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -332,12 +319,13 @@
       <workItem from="1542911939766" duration="42139000" />
       <workItem from="1543516666736" duration="1326000" />
       <workItem from="1543601476364" duration="44659000" />
-      <workItem from="1543741117544" duration="601000" />
+      <workItem from="1543741117544" duration="1080000" />
+      <workItem from="1543777695333" duration="33047000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="218619000" />
+    <option name="totallyTimeSpent" value="252145000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1293" height="693" extended-state="6" />
@@ -345,10 +333,11 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22517592" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24941361" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -357,7 +346,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -373,35 +361,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Components/AuthorPage/AuthorPage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="22" column="24" lean-forward="false" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/Forum.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="5" column="14" lean-forward="false" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/Wikipedia.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="4" lean-forward="false" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -469,13 +433,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/Firebase/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="5" column="41" lean-forward="true" selection-start-line="5" selection-start-column="41" selection-end-line="5" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/mdbreact/dist/mdbreact.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1429">
@@ -492,20 +449,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Components/Author/temp2.js" />
     <entry file="file://$PROJECT_DIR$/src/Components/Header.js" />
-    <entry file="file://$PROJECT_DIR$/src/Components/Forum.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="16" column="40" lean-forward="false" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/Wikipedia.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Components/Authentication/PasswordChangePage.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="31">
@@ -529,13 +472,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/AuthorPage/AuthorUsers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="78" column="30" lean-forward="false" selection-start-line="78" selection-start-column="30" selection-end-line="78" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Components/Authentication/RegisterPage.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="212">
@@ -547,19 +483,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="22" lean-forward="false" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/AuthorPage/BookCreatePage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-227">
-          <caret line="80" column="30" lean-forward="true" selection-start-line="80" selection-start-column="30" selection-end-line="80" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-            <marker date="1543492085386" expanded="true" signature="3468:5188" ph="..." />
-            <marker date="1543492085386" expanded="true" signature="3531:3882" ph="..." />
-            <marker date="1543492085386" expanded="true" signature="3567:3852" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -578,13 +501,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/Header/Header.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="120" column="8" lean-forward="false" selection-start-line="120" selection-start-column="8" selection-end-line="120" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="167">
@@ -599,21 +515,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="24" column="64" lean-forward="true" selection-start-line="24" selection-start-column="64" selection-end-line="24" selection-end-column="64" />
-          <folding>
-            <element signature="e#0#26#0" expanded="false" />
-            <element signature="e#125#168#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Components/Admin/users.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="29" column="27" lean-forward="false" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/Authentication/PasswordReset.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="69" column="33" lean-forward="true" selection-start-line="69" selection-start-column="33" selection-end-line="69" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tempUser.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/temp.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/AuthorPage/AuthorUsers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="46" column="21" lean-forward="true" selection-start-line="46" selection-start-column="21" selection-end-line="46" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="5" column="49" lean-forward="false" selection-start-line="5" selection-start-column="49" selection-end-line="5" selection-end-column="49" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -625,102 +563,163 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/Session/AuthorizationProvider.js">
+    <entry file="file://$PROJECT_DIR$/src/Components/Firebase/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="17" column="32" lean-forward="true" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
+        <state relative-caret-position="68">
+          <caret line="5" column="41" lean-forward="true" selection-start-line="5" selection-start-column="41" selection-end-line="5" selection-end-column="41" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/Homepage/AuthorCreatePage.js">
+    <entry file="file://$PROJECT_DIR$/src/Components/Header/Header.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="44" column="17" lean-forward="false" selection-start-line="44" selection-start-column="17" selection-end-line="44" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="8">
+          <caret line="120" column="8" lean-forward="false" selection-start-line="120" selection-start-column="8" selection-end-line="120" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/Authentication/PasswordReset.js">
+    <entry file="file://$PROJECT_DIR$/src/Components/Header/AdminHeader.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="69" column="33" lean-forward="true" selection-start-line="69" selection-start-column="33" selection-end-line="69" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/AuthorPage/BookList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="26" column="94" lean-forward="true" selection-start-line="26" selection-start-column="60" selection-end-line="26" selection-end-column="94" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/AuthorPage/AuthorPage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="96" column="25" lean-forward="true" selection-start-line="96" selection-start-column="25" selection-end-line="96" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="17">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Components/Homepage/Homepage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="382">
-          <caret line="95" column="26" lean-forward="true" selection-start-line="95" selection-start-column="26" selection-end-line="95" selection-end-column="26" />
+        <state relative-caret-position="68">
+          <caret line="30" column="20" lean-forward="true" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
-            <marker date="1543741363073" expanded="true" signature="3645:3800" ph="..." />
-            <marker date="1543741363073" expanded="true" signature="3667:3772" ph="..." />
+            <marker date="1543900986526" expanded="true" signature="3002:3283" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/Forum.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="314">
+          <caret line="21" column="39" lean-forward="false" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/Wikipedia.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="22" column="39" lean-forward="false" selection-start-line="22" selection-start-column="39" selection-end-line="22" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Components/Homepage/AuthorList.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="42" lean-forward="false" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
+        <state relative-caret-position="235">
+          <caret line="17" column="9" lean-forward="true" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/AuthorPage/BookList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="16" lean-forward="true" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/Session/AuthorizationProvider.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="22" column="9" lean-forward="true" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Components/Homepage/CRUDAuthorCard.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="132" column="26" lean-forward="true" selection-start-line="132" selection-start-column="26" selection-end-line="132" selection-end-column="26" />
+        <state relative-caret-position="221">
+          <caret line="22" column="28" lean-forward="true" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="28" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
-            <marker date="1543740122303" expanded="true" signature="4572:4976" ph="..." />
-            <marker date="1543740122303" expanded="true" signature="5047:5386" ph="..." />
+            <marker date="1543909591479" expanded="true" signature="4662:5135" ph="..." />
+            <marker date="1543909591479" expanded="true" signature="5206:5608" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/AuthorPage/AuthorPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="119" column="44" lean-forward="false" selection-start-line="119" selection-start-column="44" selection-end-line="119" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Components/Homepage/AuthorCard.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="50" column="66" lean-forward="false" selection-start-line="50" selection-start-column="66" selection-end-line="50" selection-end-column="66" />
+        <state relative-caret-position="289">
+          <caret line="35" column="14" lean-forward="true" selection-start-line="35" selection-start-column="14" selection-end-line="35" selection-end-column="14" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/temp.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
+    <entry file="file://$PROJECT_DIR$/src/Components/AuthorPage/Book.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="32" column="45" lean-forward="true" selection-start-line="32" selection-start-column="45" selection-end-line="32" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/tempUser.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
+    <entry file="file://$PROJECT_DIR$/src/Components/AuthorPage/CRUDBook.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="48" column="4" lean-forward="true" selection-start-line="48" selection-start-column="4" selection-end-line="48" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#3200#4036#0" expanded="false" />
+            <element signature="e#4069#4602#0" expanded="false" />
+            <marker date="1543910197685" expanded="true" signature="5269:6310" ph="..." />
+            <marker date="1543910197685" expanded="true" signature="5370:5847" ph="..." />
+            <marker date="1543910197685" expanded="true" signature="5912:6272" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/Homepage/AuthorCreateCard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="31" column="53" lean-forward="false" selection-start-line="31" selection-start-column="53" selection-end-line="31" selection-end-column="53" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/AuthorPage/BookCreate.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="39" column="107" lean-forward="false" selection-start-line="39" selection-start-column="107" selection-end-line="39" selection-end-column="107" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+            <marker date="1543910444911" expanded="true" signature="325:2200" ph="..." />
+            <marker date="1543910444911" expanded="true" signature="372:640" ph="..." />
+            <marker date="1543910444911" expanded="true" signature="396:625" ph="..." />
+          </folding>
+        </state>
       </provider>
     </entry>
   </component>

@@ -2,7 +2,7 @@ import React from 'react';
 import CRUDAuthorCard from './CRUDAuthorCard'
 import { Row } from 'mdbreact';
 
-const AuthorList = ({ authors, addEditCard, adminView }) => (
+const AuthorList = ({ authors, addEditCard, addedAuthor, adminView }) => (
     <>
     {authors.length === 0 ?
         <>
@@ -12,11 +12,13 @@ const AuthorList = ({ authors, addEditCard, adminView }) => (
                 </div>
             </div>
     
-            {addEditCard && <Row className='container-fluid'><CRUDAuthorCard newAuthor={true} editing={true}/></Row>}
+            {addEditCard && <Row className='container-fluid'><CRUDAuthorCard newAuthor={true} editing={true}
+                                                                             addedAuthor={addedAuthor}/></Row>}
         </>
         :
-        <Row className='container-fluid'>
-            {addEditCard && <CRUDAuthorCard newAuthor={true} editing={true}/>}
+        <Row className='container-fluid m-0'>
+            {addEditCard && <CRUDAuthorCard newAuthor={true} editing={true}
+                                            addedAuthor={addedAuthor}/>}
             {
                 authors.map(author => (
                     <CRUDAuthorCard

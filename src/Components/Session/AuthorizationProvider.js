@@ -10,6 +10,7 @@ const SessionProvider = Component => {
 
             this.isLoading = this.isLoading.bind(this);
             this.showDrawer = this.showDrawer.bind(this);
+            this.roleCheck = this.roleCheck.bind(this);
             
             this.state = {
                 loading: true,
@@ -17,7 +18,7 @@ const SessionProvider = Component => {
                 author: null,
                 firstLoad: true,
                 drawerOpen: false,
-                clicks: 5
+                clicks: 0
             };
         }
 
@@ -87,6 +88,12 @@ const SessionProvider = Component => {
                     }
                 });
             });
+        };
+        
+        roleCheck(roleList) {
+            const { role } = this.state;
+            const regex = roleList ? new RegExp('^(' + roleList + ')$', 'gi') : null;
+            return !!(role && (!regex || role.match(regex)));
         };
         
         isLoading(bool) { this.setState({loading: bool}); }

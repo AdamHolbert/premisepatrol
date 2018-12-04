@@ -1,8 +1,9 @@
 import React from 'react';
-import { FlippingCard, Card, MDBCardBody, Col, Fa, Row, MDBAvatar } from 'mdbreact';
-import AuthorCreatePage from './AuthorCreatePage'
+import { Col } from 'mdbreact';
+import AuthorCreateCard from './AuthorCreateCard'
 import AuthorCard from "./AuthorCard";
 import {withRouter} from 'react-router'
+import tempImg from '../../tempUser.png'
 import {withFirebase} from "../Firebase/context";
 
 class CRUDAuthorCard extends React.Component {
@@ -11,19 +12,23 @@ class CRUDAuthorCard extends React.Component {
         this.editToggle = this.editToggle.bind(this);
         this.deleteAuthor = this.deleteAuthor.bind(this);
         this.reset = this.reset.bind(this);
-        this.deleteAuthor = this.deleteAuthor.bind(this);
         this.peek = this.peek.bind(this);
         this.saveChanges = this.saveChanges.bind(this);
         this.createNewAuthor = this.createNewAuthor.bind(this);
+        this.showTempImg = this.showTempImg.bind(this);
+        
         this.state = {
             ...this.props.author,
             editing: this.props.editing === true,
+            brokenImg: false
         };
     }
     
     onChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
+        this.setState({ [event.target.name]: event.target.value, brokenImg: false});
     };
+    
+    showTempImg = () => {this.setState({brokenImg: true})};
     
     onUrlChange = event => {
         this.setState({ [event.target.name]: event.target.value.toString().replace(' ', '') });
@@ -48,7 +53,7 @@ class CRUDAuthorCard extends React.Component {
                     // updates['/permissionList/' + authorId] = {author: this.props.session.state.user.uid};
                     this.props.firebase.db.ref().update(updates)
                         .then(author => {
-                            this.setState({loading: false});
+                            this.props.addedAuthor();
                         })
                         .catch(error => {
                             this.setState({
@@ -117,17 +122,17 @@ class CRUDAuthorCard extends React.Component {
     render() {
         const {adminView, newAuthor } = this.props;
         const {editing, peeking} = this.state;
-        
         return (
-            <Col lg='3' md='4' sm='6' xs='12' className='mb-4'>
+            <Col xl='3' lg='4' md='6' sm='12' className='mb-4'>
                 {!peeking && (newAuthor || editing) ?
-                    <AuthorCreatePage {...this.state}
+                    <AuthorCreateCard {...this.state}
                                       newAuthor={newAuthor}
                                       createNewAuthor={this.createNewAuthor}
                                       onChange={this.onChange}
                                       saveChanges={this.saveChanges}
                                       peek={this.peek}
                                       cancel={this.reset}
+                                      showTempImg={this.showTempImg}
                     />
                     :
                     <AuthorCard {...this.state}
@@ -136,6 +141,7 @@ class CRUDAuthorCard extends React.Component {
                                 imgFunction={peeking ? null : this.imgFunction}
                                 deleteFunction={this.deleteAuthor}
                                 peek={this.peek}
+                                showTempImg={this.showTempImg}
                         />
                 }
             </Col>

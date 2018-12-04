@@ -41,10 +41,8 @@ class AuthorUsers extends React.Component {
     render(){
         
         const { author, loading } = this.state;
-        const {firebase, session} = this.props;
-        const { role, user } = session.state;
-        
-        return null;
+        // const {firebase, session} = this.props;
+        // const { role, user } = session.state;
         
         if(loading) {
             return (

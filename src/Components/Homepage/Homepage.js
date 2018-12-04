@@ -3,11 +3,14 @@ import {withFirebase} from "../Firebase/context";
 import {Animation} from 'mdbreact'
 import {withAuth} from "../Session/context";
 import AuthorList from './AuthorList';
+import AdminHeader, {ABtn} from '../Header/AdminHeader';
 
 class Homepage extends React.Component {
     
     constructor(props) {
         super(props);
+        
+        this.addedAuthor = this.addedAuthor.bind(this);
         
         this.state = {
             loading: false,
@@ -48,13 +51,17 @@ class Homepage extends React.Component {
         }
     }
     
+    addedAuthor = () => {
+        this.setState({addEditCard: false});
+    };
+    
     componentWillUnmount() {
         this.props.firebase.users().off();
     }
     
     render () {
-        const { authors, loading, addEditCard, loadAdminView } = this.state;
-        const { role } = this.props.session.state;
+        const { authors, loading, addEditCard, loadAdminView: showAdminView } = this.state;
+        
         if(loading) {
             return (
                 <div className='container-fluid text-center h1'>
@@ -62,39 +69,32 @@ class Homepage extends React.Component {
                 </div>
             );
         }
-        const isAdmin = role && role.match(/^(admin)$/);
-        const showAdminView = isAdmin && loadAdminView;
+        
         return(
             <>
-                {isAdmin && (
-                    showAdminView ?
-                        <div className='w-100 d-flex flex-row justify-content-end' >
-                            <div className='m-0 p-0 color flex-center'
-                                 onClick={() => this.setState({addEditCard: !addEditCard})}>
-                                <div className="btn btn-dark p-1 m-0 unrounded-top mx-1">
-                                    {addEditCard ? 'Cancel' : 'Add author'}
-                                </div>
-                            </div>
-                            <div className='m-0 p-0 color flex-center'
-                                 onClick={() => this.setState({loadAdminView: !loadAdminView})}>
-                                <div className="btn btn-dark p-1 m-0 unrounded-top mx-1">
-                                    Hide admin view
-                                </div>
-                            </div>
-                        </div>
-                        :
-                        <div className='w-100 d-flex flex-row justify-content-end' >
-                            <div className='m-0 p-0 color flex-center'
-                                 onClick={() => this.setState({loadAdminView: !loadAdminView})}>
-                                <div className="btn btn-dark p-1 m-0 unrounded-top mx-1">
-                                    Show admin view
-                                </div>
-                            </div>
-                        </div>)
+                {
+                showAdminView ?
+                    <AdminHeader reqPerm={'admin'}>
+                        <ABtn clickFunction={() => this.setState({addEditCard: !addEditCard})}>
+                            {addEditCard ? 'Cancel' : 'Add author'}
+                        </ABtn>
+                        <ABtn clickFunction={() => this.setState({loadAdminView: !showAdminView})}>
+                            Hide admin view
+                        </ABtn>
+                    </AdminHeader>
+                    :
+                    <AdminHeader reqPerm={'admin'}>
+                        <ABtn clickFunction={() => this.setState({loadAdminView: !showAdminView})}>
+                            Show admin view
+                        </ABtn>
+                    </AdminHeader>
                 }
-                <Animation className={!isAdmin && 'w-100 mt-4'} type='fadeIn'>
-                    <AuthorList authors={authors} adminView={showAdminView} addEditCard={addEditCard} />
-                    
+                <Animation className='w-100 mt-4' type='fadeIn'>
+                    <AuthorList authors={authors}
+                                adminView={showAdminView}
+                                addEditCard={addEditCard}
+                                addedAuthor={this.addedAuthor}
+                    />
                 </Animation>
             </>
         )

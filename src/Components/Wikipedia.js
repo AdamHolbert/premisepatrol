@@ -1,5 +1,6 @@
 import React from 'react';
 import {withAuth} from "./Session/context";
+import AdminHeader, {ABtn} from "./Header/AdminHeader";
 
 class Wikipedia extends React.Component {
     
@@ -19,7 +20,14 @@ class Wikipedia extends React.Component {
         
         return (
             <>
-                {author.username}'s Wikipedia.
+                <AdminHeader reqPerm='-'>
+        
+                    <ABtn className='btn btn-dark float-right'
+                          clickFunction={null}>
+                        
+                    </ABtn>
+                </AdminHeader>
+                {author.authorTitle}'s Wikipedia.
             </>
         )
     }
