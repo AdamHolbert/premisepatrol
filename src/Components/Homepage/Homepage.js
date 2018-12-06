@@ -1,9 +1,10 @@
 import React from 'react';
 import {withFirebase} from "../Firebase/context";
 import {Animation} from 'mdbreact'
-import {withAuth} from "../Session/context";
+import {withSession} from "../Session/context";
 import AuthorList from './AuthorList';
 import AdminHeader, {ABtn} from '../Header/AdminHeader';
+import {Fa} from 'mdbreact';
 
 class Homepage extends React.Component {
     
@@ -14,6 +15,7 @@ class Homepage extends React.Component {
         
         this.state = {
             loading: false,
+            adminView: false,
             authors: [],
         };
     }
@@ -25,20 +27,24 @@ class Homepage extends React.Component {
             activeUrl: 'home'
         });
         
-        this.props.firebase.authors().on('value', snapshot => {
+        this.ref = this.props.firebase.authors();
+        
+        this.ref.on('value', snapshot => {
             const authorObject = snapshot.val();
             
-            const authorList = authorObject ? Object.keys(authorObject).map(key => ({
-                ...authorObject[key],
-                uid: key,
+            const authorList = authorObject ? Object.keys(authorObject).map(authorId => ({
+                authorId: authorObject[authorId]
             })) : [];
             
             this.setState({
                 authors: authorList,
-                loading: false,
-                loadAdminView: true
+                loading: false
             });
         });
+    }
+    
+    componentWillUnmount() {
+        if(this.ref) this.ref.off();
     }
     
     componentWillUpdate(nextProps, nextState){
@@ -49,15 +55,15 @@ class Homepage extends React.Component {
         if(nextState.loadAdminView && (!this.props.session.state.role || this.props.session.state.role !== 'admin')){
             this.setState({loadAdminView: false});
         }
+        if(!nextState.loadAdminView && nextState.addEditCard){
+            this.setState({addEditCard: false});
+        }
     }
     
     addedAuthor = () => {
         this.setState({addEditCard: false});
     };
     
-    componentWillUnmount() {
-        this.props.firebase.users().off();
-    }
     
     render () {
         const { authors, loading, addEditCard, loadAdminView: showAdminView } = this.state;
@@ -65,7 +71,7 @@ class Homepage extends React.Component {
         if(loading) {
             return (
                 <div className='container-fluid text-center h1'>
-                    Loading Authors...
+                    <Fa icon="refresh" spin size="1x" fixed/> Loading Authors...
                 </div>
             );
         }
@@ -79,13 +85,13 @@ class Homepage extends React.Component {
                             {addEditCard ? 'Cancel' : 'Add author'}
                         </ABtn>
                         <ABtn clickFunction={() => this.setState({loadAdminView: !showAdminView})}>
-                            Hide admin view
+                            Hide Controls
                         </ABtn>
                     </AdminHeader>
                     :
                     <AdminHeader reqPerm={'admin'}>
                         <ABtn clickFunction={() => this.setState({loadAdminView: !showAdminView})}>
-                            Show admin view
+                            Show Controls
                         </ABtn>
                     </AdminHeader>
                 }
@@ -101,4 +107,4 @@ class Homepage extends React.Component {
     }
 }
 
-export default withFirebase(withAuth(Homepage));
+export default withFirebase(withSession(Homepage));

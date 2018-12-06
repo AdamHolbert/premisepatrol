@@ -51,14 +51,14 @@ class CRUDBook extends React.Component {
     
     createNewBook = event => {
         const { bookTitle, bookImg, bookDescription } = this.state;
-        const {firebase, authorUrl} = this.props;
+        const {firebase, authorId} = this.props;
         this.setState({loading: true});
         
-        firebase.db.ref(`authorList/${authorUrl}/books`).push().then((data)=>{
+        firebase.db.ref(`authorData/${authorId}/profile/books`).push().then((data)=>{
             const bookId = data.key;
         
             let updates = {};
-            updates[`authorList/${authorUrl}/books/${bookId}`] =
+            updates[`authorData/${authorId}/profile/books/${bookId}`] =
                 {bookTitle, bookImg, bookDescription};
         
             this.props.firebase.db.ref().update(updates)
@@ -66,21 +66,20 @@ class CRUDBook extends React.Component {
                     this.props.addedBook();
                 })
                 .catch(error => {
-                    this.setState({ error });
+                    this.setState({ error, loading:false });
                 
                 });
         });
     };
     
     saveChanges = event => {
-        const { bookTitle, bookImg, bookDescription, uid } = this.state;
-        const {firebase, authorUrl} = this.props;
+        const { bookTitle, bookImg, bookDescription, bookId } = this.state;
+        const {firebase, authorId} = this.props;
         this.setState({loading: true});
-        
         let updates = {};
-        updates[`authorList/${authorUrl}/books/${uid}/bookTitle`] = bookTitle;
-        updates[`authorList/${authorUrl}/books/${uid}/bookImg`] = bookImg;
-        updates[`authorList/${authorUrl}/books/${uid}/bookDescription`] = bookDescription;
+        updates[`authorData/${authorId}/profile/books/${bookId}/bookTitle`] = bookTitle;
+        updates[`authorData/${authorId}/profile/books/${bookId}/bookImg`] = bookImg;
+        updates[`authorData/${authorId}/profile/books/${bookId}/bookDescription`] = bookDescription;
         
         firebase.db.ref().update(updates)
             .then(author => {
@@ -98,13 +97,13 @@ class CRUDBook extends React.Component {
     };
     
     deleteBook = event => {
-        const { authorUrl, firebase } = this.props;
-        const {uid} = this.state;
-        console.log(uid)
+        const { authorId, firebase } = this.props;
+        const {bookId} = this.state;
+        
         this.setState({loading: true});
         
         let updates = {};
-        updates[`authorList/${authorUrl}/books/${uid}`] = null;
+        updates[`authorData/${authorId}/profile/books/${bookId}`] = null;
         
         firebase.db.ref().update(updates)
             .then(author => {
@@ -123,11 +122,12 @@ class CRUDBook extends React.Component {
         this.setState({
             ...INITIAL_STATE,
             ...this.props.book,
+            loading: false,
             editing: !!this.props.editing,
             peeking: false,
             brokenImg: false
         });
-        this.props.addedBook();
+        if(this.props.newBook) this.props.addedBook();
     };
     peek = () => this.setState({peeking: !this.state.peeking});
     imgFunction = () => this.props.history.push(`/A/${this.state.authorUrl}`);

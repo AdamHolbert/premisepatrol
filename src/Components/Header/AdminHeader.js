@@ -1,9 +1,10 @@
 import React from 'react';
-import {withAuth} from "../Session/context";
+import {MDBBtn} from 'mdbreact'
+import {withSession} from "../Session/context";
 
 export const ALabel = (props) => (
     <AFilter reqPerm={props.reqPerm}>
-        <div className='btn btn-dark p-1 m-0 unrounded-top mx-1'>
+        <div className='btn btn-dark p-1 m-0 unrounded-top m-0'>
             {props.children}
         </div>
     </AFilter>
@@ -11,12 +12,12 @@ export const ALabel = (props) => (
 
 export const ABtn = (props) => (
     <AFilter reqPerm={props.reqPerm}>
-        <div className='m-0 p-0 color flex-center'
+        <MDBBtn className='m-0 mx-1 p-0 color flex-center'
              onClick={props.clickFunction}>
             <ALabel>
                 {props.children}
             </ALabel>
-        </div>
+        </MDBBtn>
     </AFilter>
 );
 
@@ -32,7 +33,7 @@ const AFilterBase = (props) => {
     );
 };
 
-export const AFilter = withAuth(AFilterBase);
+export const AFilter = withSession(AFilterBase);
 
 class AdminHeader extends React.Component {
     

@@ -1,7 +1,7 @@
-import { withAuth } from "./context";
+import { withSession } from "./context";
 
-import SessionProvider from './AuthorizationProvider';
+import SessionProvider from './SessionProvider';
 
 export default SessionProvider;
 
-export { withAuth };
+export { withSession };

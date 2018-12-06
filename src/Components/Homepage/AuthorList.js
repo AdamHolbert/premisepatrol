@@ -23,7 +23,7 @@ const AuthorList = ({ authors, addEditCard, addedAuthor, adminView }) => (
                 authors.map(author => (
                     <CRUDAuthorCard
                         key={author.authorId}
-                        author={author}
+                        authorId={author.authorId}
                         adminView={adminView}/>
                 ))
             }

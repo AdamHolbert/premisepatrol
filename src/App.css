@@ -59,3 +59,7 @@
     color: #757575;
 
 }
+.clickable {
+    cursor: pointer;
+    touch-action: manipulation;
+}

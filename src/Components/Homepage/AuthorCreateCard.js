@@ -48,13 +48,11 @@ const AuthorCreateCard = ({ authorUrl, authorTitle, authorImg, authorDescription
                               name='authorImg' value={authorImg || ''}
                               onChange={onChange}/>
                 </CardTitle>
-                {newAuthor &&
-                    <CardTitle>
-                        <MDBInput label="Author URL" rows="1" className='m-0'
-                                  name='authorUrl' value={authorUrl || ''}
-                                  onChange={onChange}/>
-                    </CardTitle>
-                }
+                <CardTitle>
+                    <MDBInput label="Author URL" rows="1" className='m-0'
+                              name='authorUrl' value={authorUrl || ''}
+                              onChange={onChange}/>
+                </CardTitle>
                 <CardTitle>
                     <MDBInput label="Author Title" rows="1" className='m-0'
                               name='authorTitle' value={authorTitle || ''}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {withAuth} from "../Session";
+import {withSession} from "../Session";
 import {MDBBtn} from 'mdbreact';
 import {withFirebase} from "../Firebase/context";
 
@@ -99,7 +99,7 @@ class SignInFormBase extends Component {
     }
 }
 
-const SignInForm = withAuth(withFirebase(SignInFormBase));
+const SignInForm = withSession(withFirebase(SignInFormBase));
 
 export default SignInPage;
 

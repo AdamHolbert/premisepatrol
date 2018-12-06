@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import {Animation} from 'mdbreact'
 
 import {withFirebase} from "../Firebase/index";
-import {withAuth} from "../Session/context";
+import {withSession} from "../Session/context";
 
 class AuthorUsers extends React.Component {
     constructor(props) {
@@ -82,4 +82,4 @@ class AuthorUsers extends React.Component {
     };
 };
 
-export default withFirebase(withAuth(AuthorUsers));
+export default withFirebase(withSession(AuthorUsers));

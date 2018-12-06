@@ -1,7 +1,7 @@
 import React from 'react';
-import CRUDBook from "./CRUDBook";
+import CRUDBook from "./CRUDITEM";
 
-const BookList = ({books, authorTitle, authorUrl, authorId, addBook, addedBook, adminView}) => {
+const ITEMList = ({books, authorTitle, authorUrl, authorId, addBook, addedBook, adminView}) => {
     
     const bookList = books ? Object.keys(books).map(key => ({
         ...books[key],
@@ -44,4 +44,4 @@ const BookList = ({books, authorTitle, authorUrl, authorId, addBook, addedBook, 
     )
 };
 
-export default BookList;
+export default ITEMList;

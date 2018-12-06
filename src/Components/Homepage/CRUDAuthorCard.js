@@ -18,7 +18,6 @@ class CRUDAuthorCard extends React.Component {
         this.showTempImg = this.showTempImg.bind(this);
         
         this.state = {
-            ...this.props.author,
             editing: this.props.editing === true,
             brokenImg: false
         };
@@ -34,11 +33,36 @@ class CRUDAuthorCard extends React.Component {
         this.setState({ [event.target.name]: event.target.value.toString().replace(' ', '') });
     };
     
-    createNewAuthor = event => {
+    componentDidMount() {
+        const {authorId, newAuthor} = this.props;
+        
+        if(!newAuthor){
+            this.setState({ loading: true });
+            this.props.firebase.db.ref(`authorData/${authorId}/profile`).on('value', snapshot => {
+                const authorObject = snapshot.val();
+                
+                this.setState({
+                    ...authorObject,
+                    resetValues: authorObject,
+                    loading: false
+                });
+            });
+        }
+    }
+    
+    componentWillUnmount() {
+        const {authorId, newAuthor} = this.props;
+    
+        if(!newAuthor){
+            this.props.firebase.db.ref(`authorData/${authorId}/profile`).off();
+        }
+    }
+    
+    createNewAuthor = () => {
         const { authorUrl, authorTitle, authorImg, authorDescription } = this.state;
         this.setState({loading: true});
         
-        this.props.firebase.authors().once('value').then(snapshot=> {
+        this.props.firebase.db.ref(`/authorList`).once('value').then(snapshot=> {
             if (snapshot.hasChild(authorUrl)) {
                 this.setState({
                     error:{error:"That author URL is already taken"},
@@ -49,37 +73,40 @@ class CRUDAuthorCard extends React.Component {
                     const authorId = data.key;
                     
                     let updates = {};
-                    updates[`/authorList/${authorUrl}`] = {authorId, authorTitle,  authorImg, authorUrl, authorDescription};
-                    // updates['/permissionList/' + authorId] = {author: this.props.session.state.user.uid};
+                    updates[`/authorList/${authorUrl}`] = authorId;
+                    updates[`/authorData/${authorId}/profile`] =
+                        {authorTitle,  authorImg, authorUrl, authorDescription};
                     this.props.firebase.db.ref().update(updates)
-                        .then(author => {
+                        .then(() => {
                             this.props.addedAuthor();
                         })
                         .catch(error => {
                             this.setState({
                                 error: error,
                                 loading: false
-                            });
-                            
                         });
+                    });
                 });
             }
         });
     };
     
-    saveChanges = event => {
-        const { authorTitle, authorImg, authorDescription } = this.state;
-        const { authorUrl } = this.props.author;
+    saveChanges = () => {
+        const { authorTitle, authorImg, authorDescription, authorUrl } = this.state;
+        const oldAuthorUrl = this.state.resetValues.authorUrl;
+        const authorId = this.props.authorId;
         
         this.setState({loading: true});
         
         let updates = {};
-        updates[`/authorList/${authorUrl}/authorTitle`] = authorTitle;
-        updates[`/authorList/${authorUrl}/authorImg`] = authorImg;
-        updates[`/authorList/${authorUrl}/authorDescription`] = authorDescription;
-    
+        updates[`authorList/${oldAuthorUrl}`] = null;
+        updates[`authorList/${authorUrl}`] = authorId;
+        updates[`authorData/${authorId}/profile/authorTitle`] = authorTitle;
+        updates[`authorData/${authorId}/profile/authorImg`] = authorImg;
+        updates[`authorData/${authorId}/profile/authorDescription`] = authorDescription;
+        
         this.props.firebase.db.ref().update(updates)
-            .then(author => {
+            .then(() => {
                 this.setState({
                     loading: false,
                     editing: false
@@ -93,14 +120,15 @@ class CRUDAuthorCard extends React.Component {
             });
     };
     
-    deleteAuthor = event => {
-        const { authorUrl, authorId } = this.props.author;
+    deleteAuthor = () => {
+        const {authorId} = this.props;
+        const {authorUrl} = this.state;
         
         this.setState({loading: true});
         
         let updates = {};
-        updates[`/authorList/${authorUrl}`] = null;
-        updates[`/permissionList/${authorId}`] = null;
+        updates[`authorList/${authorUrl}`] = null;
+        updates[`authorData/${authorId}`] = null;
     
         this.props.firebase.db.ref().update(updates)
             .then(author => {
@@ -115,7 +143,7 @@ class CRUDAuthorCard extends React.Component {
     };
     
     editToggle = () => this.setState({editing: !this.state.editing});
-    reset = () => this.setState({...this.props.author, editing: false});
+    reset = () => this.setState({...this.state.resetValues, editing: false});
     peek = () => this.setState({peeking: !this.state.peeking});
     imgFunction = () => this.props.history.push(`/A/${this.state.authorUrl}`);
     

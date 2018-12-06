@@ -1,15 +1,14 @@
 import React from 'react';
 import {Route, Switch, Redirect} from 'react-router';
-import {Fa} from 'mdbreact';
+import {Animation, Fa} from 'mdbreact';
 import {Link} from 'react-router-dom'
-import {Animation} from 'mdbreact'
 
 import AdminHeader, {ABtn} from '../Header/AdminHeader';
-import Wikipedia from '../Wikipedia';
-import Forum from '../Forum';
+import Wikipedia from '../Wikipedia/Wikipedia';
+import Forum from '../Forum/Forum';
 import BookList from './BookList';
 import {withFirebase} from "../Firebase/index";
-import {withAuth} from "../Session/context";
+import {withSession} from "../Session/context";
 
 class AuthorPage extends React.Component {
     constructor(props) {
@@ -17,33 +16,57 @@ class AuthorPage extends React.Component {
         this.toggleAddBook = this.toggleAddBook.bind(this);
         this.state = {
             adminView: false,
-            loading: true,
-            author: null,
+            loadingAuthor: true,
+            checkingAuthor: true,
+            authorId: null,
             addBook: false
         };
     }
     
     componentDidMount() {
         this.setState({ loading: true });
+        const {authorUrl} = this.props.match.params;
         
-        this.props.firebase.author(this.props.match.params.author).on('value', snapshot => {
-            const authorObject = snapshot.val();
-            
+        if(!authorUrl)
+            this.setState({
+                author: null,
+                loading: false,
+            });
+        
+        this.props.firebase.db.ref(`authorList/${authorUrl}`).once('value', snapshot => {
+            const authorId = snapshot.val();
             this.props.session.setState({
-                author: authorObject,
+                authorId: authorId,
                 activeUrl: 'author'
             });
-    
+            this.setState({checkingAuthor: false});
+            
+            this.authorRef = this.props.firebase.db.ref(`authorData/${authorId}/profile`);
+            this.authorRef.on('value', snapshot => {
+                const authorObject = snapshot.val();
+        
+                this.props.session.setState({
+                    author: authorObject
+                });
+        
+                this.setState({
+                    author: authorObject,
+                    loadingAuthor: false,
+                });
+            });
+            
+        })
+        .catch(() => {
             this.setState({
-                author: authorObject,
+                author: null,
                 loading: false,
             });
         });
     }
     
     componentWillUnmount() {
-        this.props.firebase.author().off();
-        this.props.session.setState({author: null});
+        if(this.authorRef) this.authorRef.off();
+        this.props.session.setState({authorId: null, author: null});
     }
     
     componentWillUpdate(nextProps, nextState){
@@ -55,6 +78,9 @@ class AuthorPage extends React.Component {
         if(nextState.adminView && (!this.props.session.roleCheck('admin|author'))){
             this.setState({adminView: false});
         }
+        if(!nextState.adminView && nextState.addBook){
+            this.setState({addBook: false});
+        }
     }
     
     toggleAddBook = () => {
@@ -64,18 +90,27 @@ class AuthorPage extends React.Component {
     };
     
     render(){
-        const { author, loading, addBook, adminView } = this.state;
-        const {match} = this.props;
-        
-        if(loading) {
+        const { author, loadingAuthor, checkingAuthor, addBook, adminView } = this.state;
+        const {match, session} = this.props;
+        const {authorId} = session.state;
+    
+        if(checkingAuthor) {
             return (
                 <Animation type='fadeIn' className='container-fluid text-center w-100 text-center h1 p-2'>
-                    <Fa icon="refresh" spin size="1x" fixed/> Checking Author's existance.
+                    <Fa icon="refresh" spin size="1x" fixed/> Checking Author's existance
+                </Animation>
+            );
+        }
+    
+        if(loadingAuthor) {
+            return (
+                <Animation type='fadeIn' className='container-fluid text-center w-100 text-center h1 p-2'>
+                    <Fa icon="refresh" spin size="1x" fixed/> Getting Author's details
                 </Animation>
             );
         }
         
-        if(!author){
+        if(!authorId){
             return (
                 <Animation type='fadeIn' className='w-100 text-center h1 p-2'>
                 {this.props.match.params.author} doesn't exist
@@ -87,8 +122,10 @@ class AuthorPage extends React.Component {
         
         if(!match.isExact) return (
             <Switch>
-                <Route path={`/A/${author.authorUrl}/wikipedia`} component={Wikipedia}/>
-                <Route path={`/A/${author.authorUrl}/forum`} component={Forum}/>
+                <Route path={`/A/${author.authorUrl}/wikipedia/:wikiUrl`} component={Wikipedia}/>
+                <Route path={`/A/${author.authorUrl}/wikipedia/`} component={Wikipedia}/>
+                <Route path={`/A/${author.authorUrl}/forum/:forumUrl`} component={Forum}/>
+                <Route path={`/A/${author.authorUrl}/forum/`} render={(props) => <Redirect to={`/A/${author.authorUrl}/forum/home`}/>}/>
                 <Route path='/' render={(props) => <Redirect to={`/A/${author.authorUrl}`}/>}/>
             </Switch>
         );
@@ -105,13 +142,13 @@ class AuthorPage extends React.Component {
 
                             <ABtn className='btn btn-dark float-right'
                                   clickFunction={() => {this.setState({adminView: false})}}>
-                                Hide Admin View
+                                Hide Controls
                             </ABtn>
                         </>
                         :
                         <ABtn className='btn btn-dark float-right'
                               clickFunction={() => {this.setState({adminView: true})}}>
-                            Show Admin View
+                            Show Controls
                         </ABtn>
                     }
                 </AdminHeader>
@@ -122,6 +159,7 @@ class AuthorPage extends React.Component {
                     </div>
                     <BookList {...author}
                               adminView={adminView}
+                              authorId={authorId}
                               addedBook={this.toggleAddBook}
                               addBook={addBook}/>
                 </Animation>
@@ -130,4 +168,4 @@ class AuthorPage extends React.Component {
     };
 }
 
-export default withFirebase(withAuth(AuthorPage));
+export default withFirebase(withSession(AuthorPage));

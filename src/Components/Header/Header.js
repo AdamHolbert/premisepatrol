@@ -2,7 +2,7 @@ import React from 'react';
 import { Navbar, NavbarBrand, NavbarNav, NavItem, NavLink, NavbarToggler, Collapse, Fa } from "mdbreact";
 
 import favicon from '../../favicon.png';
-import {withAuth} from "../Session/index"
+import {withSession} from "../Session/index"
 import {withFirebase} from "../Firebase/index";
 import SignInPage from '../Authentication/SignInPage'
 import RegisterPage from '../Authentication/RegisterPage'
@@ -142,10 +142,10 @@ class Header extends React.Component {
                                         <NavLink to={'/A/' + author.authorUrl}>{author.authorTitle}'s Page</NavLink>
                                     </NavItem>
                                     <NavItem active={activeUrl==='wiki'}>
-                                        <NavLink to={'/A/' + author.authorUrl + '/wikipedia'}>Wikipedia</NavLink>
+                                        <NavLink to={'/A/' + author.authorUrl + '/wikipedia/home'}>Wikipedia</NavLink>
                                     </NavItem>
                                     <NavItem active={activeUrl==='forum'}>
-                                        <NavLink to={'/A/' + author.authorUrl + '/forum'}>Forum</NavLink>
+                                        <NavLink to={'/A/' + author.authorUrl + '/forum/home'}>Forum</NavLink>
                                     </NavItem>
                                 </>
                             }
@@ -182,4 +182,4 @@ class Header extends React.Component {
     }
 }
 
-export default withFirebase(withAuth(Header));
+export default withFirebase(withSession(Header));

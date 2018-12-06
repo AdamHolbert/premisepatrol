@@ -1,5 +1,5 @@
 import React from 'react';
-import {withAuth} from "../Session";
+import {withSession} from "../Session";
 import {MDBBtn} from 'mdbreact';
 import {withFirebase} from "../Firebase/context";
 
@@ -139,6 +139,6 @@ class RegisterForumBase extends React.Component {
     }
 }
 
-const RegisterForum = withFirebase(withAuth(RegisterForumBase));
+const RegisterForum = withFirebase(withSession(RegisterForumBase));
 
 export default RegisterPage;

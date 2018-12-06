@@ -1,0 +1,79 @@
+{
+  "authorList" : {
+    "PremisePatrol" : {
+      "authorDescription" : "This website is currently under construction. Things will change daily....\n\n\n\n\n\n-Thank you for understanding.",
+      "authorId" : "-LSi1-tzU0f6PaF8peKT",
+      "authorImg" : "favicon.png",
+      "authorTitle" : "Premise Patrol",
+      "authorUrl" : "Premise Patrol",
+      "books" : {
+        "-LSs71QdYC4E5eU2C8Bs" : {
+          "bookDescription" : "For eons, conquering dungeons has been the most efficient way to become a strong adventurer. Although, not everything is as straightforward as it seems. Several questions have always plagued the mind of those that enter these mythical places of power: Why are there so many monsters? Where does the amazing weaponry and heavy gold coins come from? Why does the very air fill with life-giving energies?! \n\nCal has all of the answers to these age old questions, for a very simple reason. He is a Dungeon Heart, a soul forced against his will into a magical stone. After several lonely years, Cal was able to regain sentience, allowing him to form new memories while slowly growing a dungeon around himself. With help from a friend, Cal learned how to create monsters and traps, increasing his power and size quickly. \n\nWhen a threat to his existence rears its head, Cal decides that he will do anything to stay alive and become stronger. Unfortunately for treasure-seekers, the fastest way for Cal to achieve his goal... is to eat anyone that enters his depths.",
+          "bookImg" : "https://i.imgur.com/jNwsbcu.png",
+          "bookTitle" : "The Divine Dungeon: Dungeon Born"
+        }
+      }
+    }
+  },
+  "permissionList" : {
+    "-LSi1-tzU0f6PaF8peKT" : {
+      "F51hmc7OMGRfuPkNDSssxhHA8zY2" : "user",
+      "RAYuHjb5nMQNi2M9EMrvXeAn1bg1" : "user",
+      "eMfaysL0aHVJHR7d8giI23ncA3h2" : "user",
+      "j3ChtV3VqfMjRy8UpVPaTEFZYBQ2" : "user"
+    },
+    "admin" : {
+      "KZPNDIZyGzbxQSwbfcvBmpm0GXF2" : "admin"
+    }
+  },
+  "users" : {
+    "A0Cqsb3j4XZ8ek0sO6aCuUfX9o02" : {
+      "email" : "b@bbb.bbb",
+      "username" : "b"
+    },
+    "F51hmc7OMGRfuPkNDSssxhHA8zY2" : {
+      "email" : "holbertadamjohn@yahoo.com",
+      "username" : "Adam"
+    },
+    "Hz7T5G8zqkWBC9XfKtVImdqlGvj2" : {
+      "email" : "ccc@ccc.ccc",
+      "username" : "c"
+    },
+    "IntTg5Uc9YWGa6Lqnlxvd3Ma9zr1" : {
+      "email" : "testUser@fake.account",
+      "username" : "Test User"
+    },
+    "KMApTXim3PhRP3UAzKNqJUNqbxs2" : {
+      "email" : "aholbert@student.neumont.edu",
+      "username" : "Adam"
+    },
+    "KZPNDIZyGzbxQSwbfcvBmpm0GXF2" : {
+      "email" : "adam@fake.account",
+      "username" : "Adam"
+    },
+    "RAYuHjb5nMQNi2M9EMrvXeAn1bg1" : {
+      "email" : "dakotaKrout@ymail.com",
+      "username" : "Dakota"
+    },
+    "RjalEsPIYehqkWmXPfcXgRHF8NM2" : {
+      "email" : "ab@ab.ab",
+      "username" : "Aholbert"
+    },
+    "eMfaysL0aHVJHR7d8giI23ncA3h2" : {
+      "email" : "testModerator@fake.account",
+      "username" : "Test Admin"
+    },
+    "j3ChtV3VqfMjRy8UpVPaTEFZYBQ2" : {
+      "email" : "testAuthor@fake.account",
+      "username" : "Test Author"
+    },
+    "vkeFRdwOSkZ2i57LAWMLbiAjgb32" : {
+      "email" : "aaa@aaa.aaa",
+      "username" : "a"
+    },
+    "zWvl0bNccNSBaX1jJZ4QpFvh1i43" : {
+      "email" : "Jake@state.farm",
+      "username" : "Jake"
+    }
+  }
+}

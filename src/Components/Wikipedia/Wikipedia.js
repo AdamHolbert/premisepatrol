@@ -1,12 +1,12 @@
 import React from 'react';
-import {withAuth} from "./Session/context";
-import AdminHeader, {ABtn} from "./Header/AdminHeader";
+import {withSession} from "../Session/context";
+import AdminHeader, {ABtn} from "../Header/AdminHeader";
 
-class Forum extends React.Component {
+class Wikipedia extends React.Component {
     
     componentDidMount() {
         this.props.session.setState({
-            activeUrl: 'forum'
+            activeUrl: 'wiki'
         });
     }
     componentWillUnmount(){
@@ -14,22 +14,23 @@ class Forum extends React.Component {
             activeUrl: 'author'
         });
     }
+    
     render() {
         const {author} = this.props.session.state;
-    
+        
         return (
             <>
                 <AdminHeader reqPerm='-'>
+        
                     <ABtn className='btn btn-dark float-right'
                           clickFunction={null}>
-        
+                        
                     </ABtn>
                 </AdminHeader>
-            {author.authorTitle}'s Forum.
+                {author.authorTitle}'s Wikipedia.
             </>
         )
     }
-    
 }
 
-export default withAuth(Forum);
+export default withSession(Wikipedia);
