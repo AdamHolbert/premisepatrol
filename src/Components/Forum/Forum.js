@@ -10,8 +10,8 @@ import FPostList from "./FPostList";
 const INITIAL_STATE = {
     posts: false,
     sections: false,
-    adminView: true,
-    addPost: true,
+    adminView: false,
+    addPost: false,
     postsEnabled: true,
     addSection: false,
 };

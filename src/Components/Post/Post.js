@@ -1,41 +1,28 @@
 import React from 'react';
-import { Row, Col, CardTitle, MDBCol, MDBRow } from 'mdbreact';
+import {Fa, Row, Col, CardTitle, MDBCol, MDBRow } from 'mdbreact';
 
 const Post = ({postTitle, postDescription, loading, adminView, editFunction, deleteFunction, brokenImg, tempImg, showTempImg}) => {
     
     const isValid = postTitle && postDescription && !loading;
     return(
     <>
-        {adminView &&
-        <Row className='w-100 p-0 m-0 mb-1 p-0 rounded-top unrounded-bottom'>
-            <Col size={7} className="m-0 p-0">
-                <div disabled={!isValid} className="btn btn-dark rounded-1 unrounded-right unrounded-bottom m-0 p-1 flex-center"
-                     onClick={editFunction}>
-                    Edit author
-                </div>
-            </Col>
-            <Col size={5} className="m-0 p-0">
-                <div disabled={!isValid} className="btn btn-danger rounded-1 unrounded-left unrounded-bottom m-0 p-1 flex-center"
-                     onClick={deleteFunction}>
-                    Delete
-                </div>
-            </Col>
-        </Row>
-        }
         {console.log(adminView)}
         <MDBCol className='text-center' size={12}>
             <CardTitle disabled={loading} className='h3'>
                 <strong>{postTitle}</strong>
+    
+                {adminView &&
+                <>
+                {/*<Fa className='text-danger m-1 clickable' onClick={deleteFunction} icon='remove' pull='right'/>*/}
+                <Fa className='text-dark m-1 clickable' onClick={editFunction} icon='edit' pull='right'/>
+                </>
+                }
             </CardTitle>
             <hr />
         </MDBCol>
-        <div className=" w-100 d-flex justify-content-center">
-            <MDBRow className='w-75'>
-                <MDBCol lg='9' md='12' sm='12' xs='12' style={{'whiteSpace': 'pre-line'}} className='my-4'>
-                    {postDescription}
-                </MDBCol>
-            </MDBRow>
-        </div>
+        <p className=" w-100" style={{'whiteSpace': 'pre-line'}} >
+            {postDescription}
+        </p>
     </>
 )};
 
