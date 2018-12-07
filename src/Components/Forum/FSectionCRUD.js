@@ -39,14 +39,14 @@ class FSectionCRUD extends React.Component {
         this.sectionRef = firebase.db.ref(`authorData/${authorId}/forumData/${forumId}/sections/${sectionId}`);
         
         this.sectionRef.on('value', snapshot => {
-            console.log(this.state)
+            
             this.setState({
                 ...INITIAL_STATE,
                 ...snapshot.val(),
                 resetValues: snapshot.val(),
                 loadingAuthor: false,
             });
-            console.log({...snapshot.val()})
+            
         });
     }
     

@@ -1,58 +1,48 @@
 import React from 'react';
 import { Card } from 'mdbreact';
-import ITEMCreate from './ITEMCreate'
-import ITEM from "./ITEM";
 import {withFirebase} from "../Firebase/context";
-import FLinkCreate from "./FLinkCreate";
-import FLink from "./FLink";
+import {withRouter} from 'react-router'
+import FPostCreate from "./FPostCreate";
+import FPost from './FPost'
+import {withSession} from "../Session/context";
 
 const INITIAL_STATE = {
-    forumTitle: 'Placeholder',
+    postTitle: '',
     error: {message: ""},
 };
 
-class FLinkCRUD extends React.Component {
+class FPostCRUD extends React.Component {
     constructor(props) {
         super(props);
         this.editToggle = this.editToggle.bind(this);
         this.reset = this.reset.bind(this);
-        this.createNewLink = this.createNewLink.bind(this);
+        this.createNewPost = this.createNewPost.bind(this);
         this.saveChanges = this.saveChanges.bind(this);
-        this.deleteITEM = this.deleteITEM.bind(this);
-        this.showTempImg = this.showTempImg.bind(this);
+        this.deletePost = this.deletePost.bind(this);
         this.removeError = this.removeError.bind(this);
         
         this.state = {
             ...INITIAL_STATE,
-            forumId: this.props.forumId,
-            editing: !!this.props.editing,
-            brokenImg: false
+            postId: this.props.postId,
+            editing: !!this.props.editing
         };
     }
     
     componentDidMount() {
-        const {firebase, authorId, linkForumId, sectionId} = this.props;
-    
-        this.titleRef = firebase.db.ref(`authorData/${authorId}/forumData/${linkForumId}/forumTitle`);
-        this.urlRef = firebase.db.ref(`authorData/${authorId}/forumData/${linkForumId}/forumUrl`);
-    
-        this.titleRef.on('value', snapshot => {
+        const {firebase, authorId, postId} = this.props;
+
+        this.postRef = firebase.db.ref(`authorData/${authorId}/postData/${postId}`);
+
+        this.postRef.on('value', snapshot => {
             this.setState({
-                forumTitle: snapshot.val() || '',
-                resetValues: {...this.state.resetValues, forumTitle:snapshot.val() || '' },
-            });
-        });
-        this.urlRef.on('value', snapshot => {
-            this.setState({
-                forumUrl: snapshot.val() || '',
-                resetValues: {...this.state.resetValues, forumUrl:snapshot.val()},
+                ...snapshot.val(),
+                resetValues: {...snapshot.val() },
             });
         });
     }
 
     componentWillUnmount() {
-        if(this.titleRef) this.titleRef.off();
-        if(this.urlRef) this.urlRef.off();
+        if(this.postRef) this.postRef.off();
     }
     
     removeError = () => {this.setState({error: false})};
@@ -61,40 +51,38 @@ class FLinkCRUD extends React.Component {
         this.setState({ [event.target.name]: event.target.value, brokenImg: false});
     };
     
-    showTempImg = () => {this.setState({brokenImg: true})};
-    
-    createNewLink = event => {
-        const {firebase, forumId, authorId, sectionId} = this.props;
-        const {forumTitle} = this.state;
-        const forumUrl = forumTitle.toLowerCase().split(' ').map((s) =>
-            s.charAt(0).toUpperCase() + s.substring(1)).join('');
+    createNewPost = event => {
+        const {firebase, forum, authorId, session, authorUrl, history} = this.props;
+        
+        const user = session.state.user;
+        if(!user){
+            return;
+        }
+        const userId = user.uid;
+        const {postTitle} = this.state;
         this.setState({loading: true});
-        firebase.db.ref(`authorData/${authorId}/forumList/${forumUrl}`).once('value').then(snapshot=> {
-            let newForumId = snapshot.exists() ? snapshot.val() : forumTitle +
-                firebase.db.ref(`authorData/${authorId}/forumData/`).push().key;
-            
-            let updates = {};
-            if(!snapshot.exists()){
-                updates[`authorData/${authorId}/forumList/${forumUrl}`] = newForumId;
-                updates[`authorData/${authorId}/forumData/${newForumId}`] =
-                    {forumUrl, forumTitle, sections: false, posts: false, postsEnabled:true};
-            }
-            updates[`authorData/${authorId}/forumData/${forumId}/sections/${sectionId}/forumIds/${newForumId}`] = true;
+        
+        const postId = postTitle.toLowerCase().split(' ').map((s) =>
+            s.charAt(0).toUpperCase() + s.substring(1)).join('') + firebase.db.ref(`authorData/${authorId}/postData/`).push().key;
+        
+        
+        let updates = {};
     
-            this.props.firebase.db.ref().update(updates)
+        updates[`authorData/${authorId}/postData/${postId}`] = {postTitle, poster: userId};
+        updates[`authorData/${authorId}/forumData/${forum.forumId}/posts/${postId}`] = true;
+        
+        firebase.db.ref().update(updates)
             .then(() => {
-                this.props.addedLink();
+                this.props.addedPost();
+                history.push(`/A/${authorUrl}/forum/${forum.forumUrl}/${postId}`)
             }).catch(error => {
-                this.setState({ error, loading: false });
-            });
-        }).catch(error => {
             this.setState({ error, loading: false });
         });
+        
     };
     
     saveChanges = event => {
-        console.log('todo: save');
-        this.setState({error:{error:'todo: save'}});
+        this.setState({error:{message:'todo: save'}})
         // const { bookTitle, bookImg, bookDescription, uid } = this.state;
         // const {firebase, authorUrl} = this.props;
         // this.setState({loading: true});
@@ -119,13 +107,15 @@ class FLinkCRUD extends React.Component {
         //     });
     };
     
-    deleteITEM = event => {
-        const {firebase,  authorId, forumId,sectionId, linkForumId} = this.props;
-        this.setState({loading: true});
-
-        let updates = {};
-        updates[`authorData/${authorId}/forumData/${forumId}/sections/${sectionId}/forumIds/${linkForumId}`] = null;
+    deletePost = event => {
+        const {firebase, authorId, forum, session, postId} = this.props;
+        const userId = session.state.user.uid;
+        const forumId = forum.forumId;
         
+        this.setState({loading: true});
+        let updates = {};
+        updates[`authorData/${authorId}/postData/${postId}`] = null;
+        updates[`authorData/${authorId}/forumData/${forumId}/posts/${postId}`] = null;
         firebase.db.ref().update(updates)
             .then(author => {
 
@@ -142,41 +132,44 @@ class FLinkCRUD extends React.Component {
     reset = () => {
         this.setState({
             ...INITIAL_STATE,
-            ...this.props.ITEM,
+            ...this.props.post,
             editing: !!this.props.editing,
             brokenImg: false
         });
-        this.props.addedLink();
+        this.props.addedPost();
     };
     // peek = () => this.setState({peeking: !this.state.peeking});
     
     render() {
-        const {adminView, newLink, authorUrl} = this.props;
-        const {editing, error} = this.state;
+        
+        const {adminView, newPost, authorUrl, forum, history} = this.props;
+        const {editing, error, postId} = this.state;
+        
         return (
             <Card className='p-0 m-2 mx-5'>
-                {newLink || editing ?
-                    <FLinkCreate
+                {newPost || editing ?
+                    <FPostCreate
                         {...this.state}
                         adminView={adminView}
-                        newLink={newLink}
+                        newPost={newPost}
                         cancel={this.reset}
                         onChange={this.onChange}
                         saveChanges={this.saveChanges}
                         removeError={this.removeError}
-                        createNewLink={this.createNewLink}
+                        createNewPost={this.createNewPost}
                         errorMessage={error ? error.message : null}
                     />
                     :
-                    <FLink
+                    <FPost
                         {...this.state}
+                        forumUrl={forum.forumUrl}
                         authorUrl={authorUrl}
                         adminView={adminView}
                         editFunction={this.editToggle}
-                        deleteFunction={this.deleteITEM}
+                        deleteFunction={this.deletePost}
                         errorMessage={error ? error.message : null}
                         removeError={this.removeError}
-                        showTempImg={this.showTempImg}
+                        linkFunction={()=> history.push(`/A/${authorUrl}/forum/${forum.forumUrl}/${postId}`)}
                     />
                 }
             </Card>
@@ -184,4 +177,4 @@ class FLinkCRUD extends React.Component {
     }
 }
 
-export default withFirebase(FLinkCRUD);
+export default withRouter(withSession(withFirebase(FPostCRUD)));

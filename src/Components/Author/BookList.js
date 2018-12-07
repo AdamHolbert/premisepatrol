@@ -13,7 +13,7 @@ const BookList = ({books, authorTitle, authorId, addBook, addedBook, adminView})
             <>
                 <div className='text-center h1 p-2'>
                     <div className='w-auto h1 mx-4 alert alert-light'>
-                        No Books have been added for {authorTitle} yet.
+                        No Books have been added for <strong>{authorTitle}</strong> yet.
                     </div>
                 </div>
                 {addBook && <CRUDBook newBook={true}

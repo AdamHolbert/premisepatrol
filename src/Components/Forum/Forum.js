@@ -4,13 +4,14 @@ import AdminHeader, {ABtn, AFilter} from "../Header/AdminHeader";
 import {Link} from "react-router-dom";
 import {withFirebase} from "../Firebase/context";
 import {Animation, Fa, MDBBtn} from 'mdbreact';
-import ForumSectionList from "./FSectionList";
-import ForumPostList from "./ForumPostList";
+import FSectionList from "./FSectionList";
+import FPostList from "./FPostList";
 
 const INITIAL_STATE = {
     posts: false,
     sections: false,
     adminView: true,
+    addPost: true,
     postsEnabled: true,
     addSection: false,
 };
@@ -96,10 +97,10 @@ class Forum extends React.Component {
         });
     }
     
-    addedSection=()=>{
-        const {addSection} = this.state;
-        this.setState({addSection: !addSection});
-    };
+    addedSection=()=> this.setState({addSection: !this.state.addSection});
+    
+    addedPost=()=> this.setState({addPost: !this.state.addPost});
+    
     
     addHome = () => {
         const {firebase, session} = this.props;
@@ -204,7 +205,7 @@ class Forum extends React.Component {
             )
         }
         const {postsEnabled} = forum;
-    
+       
         return (
             <>
             <AdminHeader reqPerm='admin|author'>
@@ -225,7 +226,7 @@ class Forum extends React.Component {
                 {forum.forumTitle}
                 <hr />
             </div>
-            <ForumSectionList
+            <FSectionList
                 {...this.state}
                 authorId={authorId}
                 authorUrl={authorUrl}
@@ -238,11 +239,13 @@ class Forum extends React.Component {
                 </MDBBtn>
             </AFilter>
             {forum.postsEnabled &&
-            <ForumPostList
-                {...this.state}
-                adminView={adminView}
-                authorId={author}
-                posts={forum.posts} />
+                <FPostList
+                    {...this.state}
+                    adminView={adminView}
+                    authorId={authorId}
+                    authorUrl={authorUrl}
+                    addedPost={this.addedPost}
+                    posts={forum.posts} />
             }
             </>
         )

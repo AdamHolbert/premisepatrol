@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom'
 
 import AdminHeader, {ABtn} from '../Header/AdminHeader';
 import Wikipedia from '../Wikipedia/Wikipedia';
+import PostPage from '../Post/PostPage'
 import Forum from '../Forum/Forum';
 import BookList from './BookList';
 import {withFirebase} from "../Firebase/index";
@@ -113,7 +114,7 @@ class AuthorPage extends React.Component {
         if(!authorId){
             return (
                 <Animation type='fadeIn' className='w-100 text-center h1 p-2'>
-                {this.props.match.params.author} doesn't exist
+                {this.props.match.params.authorUrl} doesn't exist
                     <hr />
                     <Link className='p-2 btn btn-dark mx-2 container-fluid' to={'/'}>Back to home page</Link>
                 </Animation>
@@ -122,10 +123,11 @@ class AuthorPage extends React.Component {
         
         if(!match.isExact) return (
             <Switch>
-                <Route path={`/A/${author.authorUrl}/wikipedia/:wikiUrl`} component={Wikipedia}/>
-                <Route path={`/A/${author.authorUrl}/wikipedia/`} component={Wikipedia}/>
-                <Route path={`/A/${author.authorUrl}/forum/:forumUrl`} component={Forum}/>
-                <Route path={`/A/${author.authorUrl}/forum/`} render={(props) => <Redirect to={`/A/${author.authorUrl}/forum/Home`}/>}/>
+                {/*<Route path={`/A/${author.authorUrl}/wikipedia/:wikiUrl`} component={Wikipedia}/>*/}
+                {/*<Route path={`/A/${author.authorUrl}/wikipedia/`} component={Wikipedia}/>*/}
+                <Route path={`/A/:authorUrl/forum/:forumUrl/:postId`} component={PostPage}/>
+                <Route path={`/A/:authorUrl/forum/:forumUrl`} component={Forum}/>
+                <Route path={`/A/:authorUrl/forum/`} render={(props) => <Redirect to={`/A/${author.authorUrl}/forum/Home`}/>}/>
                 <Route path='/' render={(props) => <Redirect to={`/A/${author.authorUrl}`}/>}/>
             </Switch>
         );
