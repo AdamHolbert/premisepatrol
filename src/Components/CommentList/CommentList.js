@@ -1,30 +1,29 @@
 import React from 'react';
 import {AFilter} from "../Header/AdminHeader";
 import {MDBBtn} from 'mdbreact'
-import CommentCRUD from "./CommentCrud";
+import CommentCRUD from "./CommentCRUD";
 
 const AdminControls  = ({props}) => (
-    <AFilter reqPerm='admin|author' hide={!props.adminView}>
+    <AFilter reqPerm='admin|author|user'>
         <div className='text-center p-0 m-0'>
-            {
-                props.addLink &&
-                <CommentCRUD
-                    {...props}
-                    newLink={true}
-                    addedLink={props.addedLink} />
-            }
+            <CommentCRUD
+                editing={true}
+                newComment={true}
+                {...props}
+            />
         </div>
     </AFilter>
 );
 
 const CommentList = (props) => {
-    
-    const forumList = props.forumIds ? Object.keys(props.forumIds).map(forumId => ({
-        ...props.forumIds[forumId],
-        forumId: forumId,
+    console.log(props)
+    const commentList = props.comments ? Object.keys(props.comments).map(commentId => ({
+        ...props.comments[commentId],
+        commentId: commentId,
+        
     })) : null;
-    
-    if(!forumList || forumList.length === 0){
+    console.log(commentList)
+    if(!commentList || commentList.length === 0){
         return (
             <AdminControls props={props}/>
         );
@@ -32,15 +31,15 @@ const CommentList = (props) => {
     
     return(
         <>
-        <AdminControls props={props}/>
         {
-            forumList.map(forumId =>
+            commentList.map(comment =>
                 <CommentCRUD
-                    key={forumId.forumId}
-                    linkForumId={forumId.forumId}
-                    {...props} />
+                    key={comment.commentId}
+                    {...props}
+                    comment={comment}/>
             )
         }
+        <AdminControls props={props}/>
         </>
     )
 };

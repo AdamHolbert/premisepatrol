@@ -8,18 +8,18 @@ const Post = ({postTitle, postDescription, loading, adminView, commentsToggle, c
     const isValid = postTitle && postDescription && !loading;
     return(
     <>
-        <MDBCol className='text-center' size={12}>
+        <MDBCol className='' size={12}>
             <CardTitle disabled={loading} className='h3'>
-                <strong>{postTitle}</strong>
-    
+                <strong>{postTitle}</strong> - <User userId={poster} />
+                
                 {adminView &&
                 <>
-                <Fa className='text-danger m-1 clickable' onClick={deleteFunction} icon='remove' pull='right'/>
-                <Fa className='text-dark m-1 clickable' onClick={editFunction} icon='edit' pull='right'/>
-                
-                <MDBBtn disabled={togglingComments} onClick={commentsToggle} className='float-right p-1 m-1'>
-                    {commentsEnabled ? 'Disable Comments' : 'Enable Comments'}
-                </MDBBtn>
+                    <Fa className='text-danger m-1 clickable' onClick={deleteFunction} icon='remove' pull='right'/>
+                    <Fa className='text-dark m-1 clickable' onClick={editFunction} icon='edit' pull='right'/>
+                    
+                    <MDBBtn disabled={togglingComments} onClick={commentsToggle} className='float-right p-1 m-1'>
+                        {commentsEnabled ? 'Disable Comments' : 'Enable Comments'}
+                    </MDBBtn>
                 </>
                 }
             </CardTitle>
@@ -28,9 +28,6 @@ const Post = ({postTitle, postDescription, loading, adminView, commentsToggle, c
         <p className=" w-100" style={{'whiteSpace': 'pre-line'}} >
             {postDescription}
         </p>
-        <div className="text-right">
-            - <User userId={poster} />
-        </div>
     </>
 )};
 

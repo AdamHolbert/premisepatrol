@@ -15,7 +15,6 @@ class CRUDPost extends React.Component {
         this.setState({loading: true});
         
         firebase.db.ref(`users/${userId}`).once('value', user => {
-            console.log(user.val())
             this.setState({
                 
                 ...user.val(),

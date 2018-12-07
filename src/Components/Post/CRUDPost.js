@@ -1,8 +1,8 @@
 import React from 'react';
 import { Card } from 'mdbreact';
-import PostCreate from './PostCreate'
+import PostCreate from './PostCreate';
 import Post from "./Post";
-import CommentList from '../CommentList/CommentList';
+import CommentPage from '../CommentList/CommentPage';
 import {withFirebase} from "../Firebase/context";
 import {withSession} from "../Session/context";
 
@@ -23,6 +23,7 @@ class CRUDPost extends React.Component {
         
         this.state = {
             ...INITIAL_STATE,
+            ...this.props.comment,
             editing: !!this.props.editing,
             peeking: false,
             brokenImg: false
@@ -137,7 +138,8 @@ class CRUDPost extends React.Component {
     render() {
         const user = this.props.session.state.user;
         const userId = user ? user.uid : null;
-        const {poster, commentsEnabled} = this.state;
+        const {commentDescription} = this.props;
+        const {poster, commentsEnabled, commentSectionId} = this.state;
         const isPoster = userId === poster;
         
         const {adminView} = this.props;
@@ -156,19 +158,21 @@ class CRUDPost extends React.Component {
                                 showTempImg={this.showTempImg}
                     />
                     :
-                    <Post {...this.state}
-                          adminView={adminView || isPoster}
-                          imgFunction={peeking ? null : this.imgFunction}
-                          editFunction={this.editToggle}
-                          deleteFunction={this.deletePost}
-                          peek={this.peek}
-                          showTempImg={this.showTempImg}
-                          commentsToggle={this.toggleCommentsEnabled}
+                    <Post
+                        {...this.state}
+                        commentDescription={commentDescription}
+                        adminView={adminView || isPoster}
+                        imgFunction={peeking ? null : this.imgFunction}
+                        editFunction={this.editToggle}
+                        deleteFunction={this.deletePost}
+                        peek={this.peek}
+                        showTempImg={this.showTempImg}
+                        commentsToggle={this.toggleCommentsEnabled}
                     />
                 }
             </Card>
             {
-                // commentsEnabled && <CommentList />
+                commentsEnabled && commentSectionId && <CommentPage commentSectionId={commentSectionId}/>
             }
             </>
         )
