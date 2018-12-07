@@ -125,7 +125,7 @@ class AuthorPage extends React.Component {
                 <Route path={`/A/${author.authorUrl}/wikipedia/:wikiUrl`} component={Wikipedia}/>
                 <Route path={`/A/${author.authorUrl}/wikipedia/`} component={Wikipedia}/>
                 <Route path={`/A/${author.authorUrl}/forum/:forumUrl`} component={Forum}/>
-                <Route path={`/A/${author.authorUrl}/forum/`} render={(props) => <Redirect to={`/A/${author.authorUrl}/forum/home`}/>}/>
+                <Route path={`/A/${author.authorUrl}/forum/`} render={(props) => <Redirect to={`/A/${author.authorUrl}/forum/Home`}/>}/>
                 <Route path='/' render={(props) => <Redirect to={`/A/${author.authorUrl}`}/>}/>
             </Switch>
         );

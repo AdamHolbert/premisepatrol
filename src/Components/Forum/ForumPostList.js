@@ -1,7 +1,7 @@
 import React from 'react';
 import CRUDBook from "./CRUDITEM";
 
-const ForumPostList = ({books, authorTitle, authorUrl, authorId, addBook, addedBook, adminView}) => {
+const ForumPostList = ({books, forum, authorUrl, authorId, addBook, addedBook, adminView}) => {
     
     const bookList = books ? Object.keys(books).map(key => ({
         ...books[key],
@@ -13,7 +13,7 @@ const ForumPostList = ({books, authorTitle, authorUrl, authorId, addBook, addedB
             <>
             <div className='text-center h1 p-2'>
                 <div className='w-auto h1 mx-4 alert alert-light'>
-                    No Books have been added for {authorTitle} yet.
+                    No Posts have been added for <strong>{forum.forumTitle}</strong> yet.
                 </div>
             </div>
             {addBook && <CRUDBook newBook={true}

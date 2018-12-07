@@ -62,7 +62,9 @@ class Firebase {
     
     authors = () => this.db.ref('authorList');
     
-    permission = (authorId, userId) => this.db.ref(`permissionList/${authorId}/${userId}`);
+    permission = (authorId, userId) => this.db.ref(`authorData/${authorId}/permissions/${userId}`);
+    
+    admin = (userId) => this.db.ref(`adminPermissions/${userId}`);
     
     update = (updates) => this.db.ref().update(updates);
 }

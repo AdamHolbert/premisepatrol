@@ -49,21 +49,23 @@ const SessionProvider = Component => {
                 this.updatePermissions(nextState);
                 
             }
-            if(this.state.author !== nextState.author){
+            if(this.state.authorId !== nextState.authorId){
                 // update the current loaded permissions
                 this.updatePermissions(nextState);
                 
             }
         }
         
-        updatePermissions = ({user, author}) => {
+        updatePermissions = ({user, authorId}) => {
+            
+            const {firebase} = this.props;
             if(!user){
                 this.setState({
                     role: null
                 });
                 return;
             }
-            this.props.firebase.permission('admin', user.uid).once('value', snapshot => {
+            firebase.admin(user.uid).once('value', snapshot => {
                 const userPermissions = snapshot.val();
                 if(userPermissions){
                     this.setState({
@@ -71,19 +73,19 @@ const SessionProvider = Component => {
                     });
                     return;
                 }
-                if(!author){
+                if(!authorId){
                     this.setState({
                         role: 'user'
                     });
                     return;
                 }
-                this.props.firebase.permission(author.authorId, user.uid).once('value', snapshot => {
+                this.props.firebase.permission(authorId, user.uid).once('value', snapshot => {
                     const userPermissions = snapshot.val();
                     this.setState({
                         role: userPermissions ? userPermissions : 'user'
                     });
                     if(!userPermissions) {
-                        this.props.firebase.permission(author.authorId, user.uid)
+                        this.props.firebase.permission(authorId, user.uid)
                             .set('user');
                     }
                 });

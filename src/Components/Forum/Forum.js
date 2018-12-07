@@ -4,13 +4,16 @@ import AdminHeader, {ABtn, AFilter} from "../Header/AdminHeader";
 import {Link} from "react-router-dom";
 import {withFirebase} from "../Firebase/context";
 import {Animation, Fa, MDBBtn} from 'mdbreact';
-import ForumSectionList from "./ForumSectionList";
+import ForumSectionList from "./FSectionList";
 import ForumPostList from "./ForumPostList";
 
 const INITIAL_STATE = {
     posts: false,
-    sections: false
-}
+    sections: false,
+    adminView: true,
+    postsEnabled: true,
+    addSection: false,
+};
 
 class Forum extends React.Component {
     constructor(props) {
@@ -20,11 +23,10 @@ class Forum extends React.Component {
         this.state = {
             ...INITIAL_STATE,
             forumUrl: null,
-            adminView: false,
-            addSection: false,
             checkingExistance: true,
             loadingForum: true,
             forum: null,
+            switchingPosts: false,
         };
     }
     
@@ -34,10 +36,9 @@ class Forum extends React.Component {
         });
     }
     
-    
     componentWillUpdate(nextProps, nextState){
         const {firebase, session} = this.props;
-        const newUrl = nextProps.match.params.forumUrl || 'home';
+        const newUrl = nextProps.match.params.forumUrl;
         
         if(newUrl !== nextState.forumUrl || nextState.addedForum){
             this.setState({
@@ -51,8 +52,8 @@ class Forum extends React.Component {
             firebase.db.ref(`authorData/${session.state.authorId}/forumList/${newUrl}`).once('value', snapshot => {
                 const forumId = snapshot.val();
                 if(!forumId) {
-                    if(newUrl === 'home'){
-                        this.addForum('home');
+                    if(newUrl === 'Home'){
+                        this.addHome();
                     } else {
                         this.setState({
                             checkingExistance: false,
@@ -100,15 +101,17 @@ class Forum extends React.Component {
         this.setState({addSection: !addSection});
     };
     
-    addForum = (forumUrl) => {
+    addHome = () => {
         const {firebase, session} = this.props;
+        const forumUrl = 'Home';
         
         firebase.db.ref(`authorData/${session.state.authorId}/forumData/`).push().then((data)=>{
-            const forumId = data.key;
+            const forumId = forumUrl + data.key;
     
             let updates = {};
             updates[`authorData/${session.state.authorId}/forumList/${forumUrl}`] = forumId;
-            updates[`authorData/${session.state.authorId}/forumData/${forumId}`] = {sections: false, posts: false};
+            updates[`authorData/${session.state.authorId}/forumData/${forumId}`] =
+                {forumUrl, forumTitle: 'Home', sections: false, posts: false, postsEnabled: false};
 
             this.props.firebase.db.ref().update(updates)
                 .then(() => {
@@ -129,10 +132,28 @@ class Forum extends React.Component {
         });
     };
     
+    togglePostsOnForum = () => {
+        const {firebase, session} = this.props;
+        const {postsEnabled, forumId} = this.state.forum;
+        
+        let updates = {};
+        updates[`authorData/${session.state.authorId}/forumData/${forumId}/postsEnabled`] = !postsEnabled;
+        this.setState({switchingPosts: true});
+        firebase.db.ref().update(updates).then(() => {
+            this.setState({switchingPosts: false});
+        })
+        .catch(error => {
+            this.setState({ error,
+                switchingPosts: false
+            });
+
+        })
+    };
+    
     render() {
         const {author, authorId} = this.props.session.state;
-        const {forumUrl, checkingExistance, loadingForum, forum, adminView} = this.state;
-        
+        const {authorUrl} = this.props.session.state.author;
+        const {forumUrl, checkingExistance, loadingForum, switchingPosts, forum, adminView} = this.state;
         if(checkingExistance) {
             return (
                 <Animation type='fadeIn' className='container-fluid text-center w-100 text-center h1 p-2'>
@@ -173,8 +194,8 @@ class Forum extends React.Component {
                                 main forum
                             </Link>
                         </MDBBtn>
-                        <AFilter hide={!adminView}>
-                            <MDBBtn onClick={()=>this.addForum(forumUrl)}>
+                        <AFilter hide={!adminView} reqPerm={'admin|author'}>
+                            <MDBBtn onClick={()=>this.addLink(forumUrl)}>
                                 Add this page to the forum?
                             </MDBBtn>
                         </AFilter>
@@ -182,31 +203,47 @@ class Forum extends React.Component {
                 </>
             )
         }
-        
+        const {postsEnabled} = forum;
+    
         return (
             <>
-                <AdminHeader reqPerm='admin|author'>
-                    {adminView ?
-                        <ABtn className='btn btn-dark float-right'
-                              clickFunction={() => {this.setState({adminView: false})}}>
-                            Hide Controls
-                        </ABtn>
-                        :
-                        <ABtn className='btn btn-dark float-right'
-                              clickFunction={() => {this.setState({adminView: true})}}>
-                            Show Controls
-                        </ABtn>
-                    }
-                </AdminHeader>
-                <ForumSectionList {...this.state}
-                                  authorId={authorId}
-                                  adminView={adminView}
-                                  sections={forum.sections}
-                                  addedSection={this.addedSection}/>
-                <ForumPostList {...this.state}
-                               adminView={adminView}
-                               authorId={author}
-                               posts={forum.posts} />
+            <AdminHeader reqPerm='admin|author'>
+                {adminView ?
+                    <ABtn className='btn btn-dark float-right'
+                          clickFunction={() => {this.setState({adminView: false})}}>
+                        Hide Controls
+                    </ABtn>
+                    :
+                    <ABtn className='btn btn-dark float-right'
+                          clickFunction={() => {this.setState({adminView: true})}}>
+                        Show Controls
+                    </ABtn>
+                }
+            </AdminHeader>
+
+            <div className='w-100 text-center h1 p-2'>
+                {forum.forumTitle}
+                <hr />
+            </div>
+            <ForumSectionList
+                {...this.state}
+                authorId={authorId}
+                authorUrl={authorUrl}
+                adminView={adminView}
+                sections={forum.sections}
+                addedSection={this.addedSection}/>
+            <AFilter hide={!adminView} reqPerm={'admin|author'}>
+                <MDBBtn disabled={switchingPosts} onClick={this.togglePostsOnForum}>
+                    {postsEnabled ? 'Disable posts' : 'Enable posts'}
+                </MDBBtn>
+            </AFilter>
+            {forum.postsEnabled &&
+            <ForumPostList
+                {...this.state}
+                adminView={adminView}
+                authorId={author}
+                posts={forum.posts} />
+            }
             </>
         )
     }

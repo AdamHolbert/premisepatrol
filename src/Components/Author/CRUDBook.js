@@ -55,7 +55,7 @@ class CRUDBook extends React.Component {
         this.setState({loading: true});
         
         firebase.db.ref(`authorData/${authorId}/profile/books`).push().then((data)=>{
-            const bookId = data.key;
+            const bookId = bookTitle + data.key;
         
             let updates = {};
             updates[`authorData/${authorId}/profile/books/${bookId}`] =

@@ -70,7 +70,7 @@ class CRUDAuthorCard extends React.Component {
                 })
             } else {
                 this.props.firebase.author(authorUrl).push().then(data =>{
-                    const authorId = data.key;
+                    const authorId = authorTitle + data.key;
                     
                     let updates = {};
                     updates[`/authorList/${authorUrl}`] = authorId;
@@ -104,6 +104,7 @@ class CRUDAuthorCard extends React.Component {
         updates[`authorData/${authorId}/profile/authorTitle`] = authorTitle;
         updates[`authorData/${authorId}/profile/authorImg`] = authorImg;
         updates[`authorData/${authorId}/profile/authorDescription`] = authorDescription;
+        updates[`authorData/${authorId}/profile/authorUrl`] = authorUrl;
         
         this.props.firebase.db.ref().update(updates)
             .then(() => {
