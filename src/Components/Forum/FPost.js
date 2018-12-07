@@ -1,14 +1,22 @@
 import React from 'react';
 import {AFilter} from "../Header/AdminHeader";
+import User from '../Header/User'
 import { MDBBtn, CardTitle, Fa, Row, Col } from 'mdbreact';
 
-const FPost = ({postTitle, loading, errorMessage, authorUrl, forumUrl, postId, adminView, deleteFunction,
+const FPost = ({postTitle, loading, errorMessage, authorUrl, forumUrl, postId, adminView, poster, deleteFunction,
                    onChange, createNewLink, saveChanges, cancel, removeError, linkFunction}) => (
     <>
         <Row className='m-0'>
             <MDBBtn className='m-0 text-dark flex-grow-1 text-left rgba-grey-light' gradient='a' color='a'
                     onClick={linkFunction}>
-                    {postTitle}
+                <Row className='m-0 justify-content-between'>
+                    <div>
+                        {postTitle}
+                    </div>
+                    <div>
+                        - <User userId={poster} />
+                    </div>
+                </Row>
             </MDBBtn>
             <AFilter reqPerm='admin|author' hide={!adminView}>
                 <MDBBtn className='m-0 danger-color darken-3' color='a' onClick={deleteFunction}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, CardTitle, Col, MDBBtn, Row } from 'mdbreact';
+import { Input, CardTitle, Col, Fa, Row } from 'mdbreact';
 import tempImg from '../../tempUser.png';
 
 const BookCreate = ({ bookTitle, bookImg, bookDescription, loading, author, brokenImg, newBook,
@@ -7,8 +7,12 @@ const BookCreate = ({ bookTitle, bookImg, bookDescription, loading, author, brok
     <>
         <Col className='text-center' size={12}>
             <CardTitle>
-                <Input size='lg' label="Book Title" name='bookTitle'
-                          className='text-center mb-0' value={bookTitle} onChange={onChange}/>
+                <Row>
+                    <Input size='lg' label="Book Title" name='bookTitle' containerClass='flex-grow-1 m-0'
+                           className='text-center mb-0' value={bookTitle} onChange={onChange}/>
+                    <Fa className='text-danger m-1 clickable' onClick={cancel} icon='remove' pull='right'/>
+                    <Fa className='text-dark m-1 clickable' onClick={saveChanges} icon='save' pull='right'/>
+                </Row>
                 <hr className="mt-0" />
             </CardTitle>
         </Col>
@@ -28,20 +32,6 @@ const BookCreate = ({ bookTitle, bookImg, bookDescription, loading, author, brok
                     <Input label="Image URL" rows="5"
                               name='bookImg' className='mt-3' value={bookImg}
                               onChange={onChange}/>
-                    <Row>
-                        <Col size={7} className="m-0 p-0">
-                            <MDBBtn className='m-1 w-100' disabled={loading}
-                                    onClick={newBook ? createNewBook : saveChanges} color='elegant'>
-                                {newBook ? 'Create new book' : 'Save'}
-    
-                            </MDBBtn>
-                        </Col>
-                        <Col size={5} className="m-0 p-0">
-                            <MDBBtn className='m-1 w-100' disabled={loading} onClick={cancel} color='danger'>
-                                Cancel
-                            </MDBBtn>
-                        </Col>
-                    </Row>
                 </Col>
             </Row>
         </div>

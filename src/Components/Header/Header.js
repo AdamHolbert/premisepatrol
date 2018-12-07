@@ -142,7 +142,7 @@ class Header extends React.Component {
                                         <NavLink to={'/A/' + author.authorUrl}>{author.authorTitle}'s Page</NavLink>
                                     </NavItem>
                                     <NavItem active={activeUrl==='wiki'}>
-                                        <NavLink to={'/A/' + author.authorUrl + '/wikipedia/Home'}>Wikipedia</NavLink>
+                                        <NavLink disabled to={'/A/' + author.authorUrl + '/wikipedia/Home'}>Wikipedia</NavLink>
                                     </NavItem>
                                     <NavItem active={activeUrl==='forum'}>
                                         <NavLink to={'/A/' + author.authorUrl + '/forum/Home'}>Forum</NavLink>

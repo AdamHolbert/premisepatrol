@@ -1,20 +1,25 @@
 import React from 'react';
-import {Fa, Row, Col, CardTitle, MDBCol, MDBRow } from 'mdbreact';
+import User from '../Header/User'
+import {Fa, Row, MDBBtn, CardTitle, MDBCol, Input } from 'mdbreact';
 
-const Post = ({postTitle, postDescription, loading, adminView, editFunction, deleteFunction, brokenImg, tempImg, showTempImg}) => {
+const Post = ({postTitle, postDescription, loading, adminView, commentsToggle, commentsEnabled, togglingComments,
+                  editFunction, deleteFunction, brokenImg, tempImg, showTempImg, poster}) => {
     
     const isValid = postTitle && postDescription && !loading;
     return(
     <>
-        {console.log(adminView)}
         <MDBCol className='text-center' size={12}>
             <CardTitle disabled={loading} className='h3'>
                 <strong>{postTitle}</strong>
     
                 {adminView &&
                 <>
-                {/*<Fa className='text-danger m-1 clickable' onClick={deleteFunction} icon='remove' pull='right'/>*/}
+                <Fa className='text-danger m-1 clickable' onClick={deleteFunction} icon='remove' pull='right'/>
                 <Fa className='text-dark m-1 clickable' onClick={editFunction} icon='edit' pull='right'/>
+                
+                <MDBBtn disabled={togglingComments} onClick={commentsToggle} className='float-right p-1 m-1'>
+                    {commentsEnabled ? 'Disable Comments' : 'Enable Comments'}
+                </MDBBtn>
                 </>
                 }
             </CardTitle>
@@ -23,6 +28,9 @@ const Post = ({postTitle, postDescription, loading, adminView, editFunction, del
         <p className=" w-100" style={{'whiteSpace': 'pre-line'}} >
             {postDescription}
         </p>
+        <div className="text-right">
+            - <User userId={poster} />
+        </div>
     </>
 )};
 

@@ -2,7 +2,6 @@ import React from 'react';
 import { Card } from 'mdbreact';
 import PostCreate from './PostCreate'
 import Post from "./Post";
-import CommentList from '../CommentList/CommentList';
 import {withFirebase} from "../Firebase/context";
 import {withSession} from "../Session/context";
 
@@ -25,7 +24,8 @@ class CRUDPost extends React.Component {
             ...INITIAL_STATE,
             editing: !!this.props.editing,
             peeking: false,
-            brokenImg: false
+            brokenImg: false,
+            allowComments: false,
         };
     }
     
@@ -63,7 +63,7 @@ class CRUDPost extends React.Component {
     
         updates[`authorData/${authorId}/postData/${postId}/postTitle`] = postTitle;
         updates[`authorData/${authorId}/postData/${postId}/postDescription`] = postDescription;
-        
+        console.log(`authorData/${authorId}/postData/${postId}/postDescription`);
         firebase.db.ref().update(updates).then(author => {
             this.setState({
                 loading: false,
@@ -110,40 +110,15 @@ class CRUDPost extends React.Component {
         if(this.props.newBook) this.props.addedBook();
     };
     
-    toggleCommentsEnabled = () => {
-        const { commentsEnabled, commentSectionId } = this.state;
-        const {firebase, authorId, postId} = this.props;
-        this.setState({loading: true});
-        let updates = {};
-        
-        updates[`authorData/${authorId}/postData/${postId}/commentsEnabled`] = !commentsEnabled;
-        this.setState({togglingComments: true});
-        if(!commentSectionId){
-            const commentSectionId = firebase.db.ref(`authorData/${authorId}/commentSections`).push().key;
-            updates[`authorData/${authorId}/postData/${postId}/commentSectionId`] = commentSectionId;
-            updates[`authorData/${authorId}/commentSections/${commentSectionId}`] = false
-        }
-        firebase.db.ref().update(updates).then(() => {
-            this.setState({togglingComments: false});
-            
-        }).catch(error => {
-            this.setState({
-                error,
-                togglingComments: false
-            });
-        })
-    };
-    
     render() {
         const user = this.props.session.state.user;
         const userId = user ? user.uid : null;
-        const {poster, commentsEnabled} = this.state;
+        const {poster} = this.state;
         const isPoster = userId === poster;
         
         const {adminView} = this.props;
         const {editing, peeking} = this.state;
         return (
-            <>
             <Card className='p-4 m-3'>
                 {editing ?
                     <PostCreate {...this.state}
@@ -163,14 +138,10 @@ class CRUDPost extends React.Component {
                           deleteFunction={this.deletePost}
                           peek={this.peek}
                           showTempImg={this.showTempImg}
-                          commentsToggle={this.toggleCommentsEnabled}
+                          commentsToggle={this.commentsToggle}
                     />
                 }
             </Card>
-            {
-                // commentsEnabled && <CommentList />
-            }
-            </>
         )
     }
 }

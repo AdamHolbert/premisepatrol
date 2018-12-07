@@ -144,7 +144,6 @@ class FPostCRUD extends React.Component {
         
         const {adminView, newPost, authorUrl, forum, history} = this.props;
         const {editing, error, postId} = this.state;
-        
         return (
             <Card className='p-0 m-2 mx-5'>
                 {newPost || editing ?
